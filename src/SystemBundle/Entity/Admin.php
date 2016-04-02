@@ -1,16 +1,19 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Table(name="admin")
+ * @ORM\Entity(repositoryClass="SystemBundle\Repository\AdminRepository")
  */
-class User implements UserInterface, \Serializable
+class Admin implements UserInterface, \Serializable
 {
+    /** Full access rights */
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -32,6 +35,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\Column(name="roles", type="json_array")
+     */
+    private $roles = [self::ROLE_ADMIN];
 
     public function __construct()
     {
@@ -55,7 +63,15 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles($roles = [self::ROLE_ADMIN])
+    {
+        $this->roles = $roles;
     }
 
     public function eraseCredentials()
