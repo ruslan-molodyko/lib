@@ -3,5 +3,8 @@ auth:
     type:     annotation
     prefix:   /
 
-logout:
+user_logout:
+    path: /logout
+
+admin_logout:
     path: /logout
