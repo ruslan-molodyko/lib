@@ -16,3 +16,5 @@
 /vendor/
 /web/bundles/
 /www/bundles/
+/www/app/node_modules/
+/www/src/
