@@ -35,6 +35,7 @@ framework:
 assetic:
     debug: '%kernel.debug%'
     use_controller: '%kernel.debug%'
+    read_from: '%kernel.root_dir%/../www'
     filters:
         cssrewrite: ~
 

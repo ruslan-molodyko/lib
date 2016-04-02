@@ -7,21 +7,21 @@ security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
 
-        AppBundle\Entity\User:
+        SystemBundle\Entity\User:
             algorithm: bcrypt
 
-        AppBundle\Entity\Admin:
+        SystemBundle\Entity\Admin:
             algorithm: bcrypt
 
     providers:
         user_provider:
             entity:
-                class: AppBundle:User
+                class: SystemBundle:User
                 property: email
 
         admin_provider:
             entity:
-                class: AppBundle:Admin
+                class: SystemBundle:Admin
                 property: email
 
     firewalls:

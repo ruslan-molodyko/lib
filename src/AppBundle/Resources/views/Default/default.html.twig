@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <meta charset="utf-8">
+    {% stylesheets output="css/app.css"
+    "src/css/index.css"
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+    hello
+
+{% endblock %}
