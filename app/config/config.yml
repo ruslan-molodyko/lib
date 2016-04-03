@@ -10,7 +10,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -67,3 +67,27 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        image_book:
+            uri_prefix:         /images/book
+            upload_destination: "%kernel.root_dir%/../www/images/book"
+        image_author:
+            uri_prefix:         /images/author
+            upload_destination: "%kernel.root_dir%/../www/images/author"
+        image_publishing_house:
+            uri_prefix:         /images/publishing-house
+            upload_destination: "%kernel.root_dir%/../www/images/publishing-house"
+        image_user:
+            uri_prefix:         /images/user
+            upload_destination: "%kernel.root_dir%/../www/images/user"

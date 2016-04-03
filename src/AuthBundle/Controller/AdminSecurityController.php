@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class AdminSecurityController extends Controller
 {
     /**
-     * @Route("/admin/login", name="auth_admin_security_login")
+     * @Route("/dashboard/login", name="auth_admin_security_login")
      */
     public function loginAction()
     {

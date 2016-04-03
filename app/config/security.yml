@@ -43,22 +43,22 @@ security:
                 path: user_logout
                 target: /
 
-        admin_firewall:
-            anonymous: ~
-            pattern: ^/admin
-            provider: admin_provider
-            form_login:
-                always_use_default_target_path: true
-                use_forward: false
-                login_path: auth_admin_security_login
-                check_path: auth_admin_security_login
-                default_target_path: homepage
-            logout:
-                path: admin_logout
-                target: /admin/login
+#        admin_firewall:
+#            anonymous: ~
+#            pattern: ^/admin
+#            provider: admin_provider
+#            form_login:
+#                always_use_default_target_path: true
+#                use_forward: false
+#                login_path: auth_admin_security_login
+#                check_path: auth_admin_security_login
+#                default_target_path: homepage
+#            logout:
+#                path: admin_logout
+#                target: /admin/login
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
