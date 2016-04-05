@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-
 /**
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="SystemBundle\Repository\BookRepository")
@@ -59,7 +58,6 @@ class Book
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
-
         return $this;
     }
 
@@ -107,6 +105,9 @@ class Book
      */
     public function getImage()
     {
+        if ($this->image) {
+            return new File($this->image);
+        }
         return $this->image;
     }
 
