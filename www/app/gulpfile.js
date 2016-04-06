@@ -52,7 +52,7 @@ gulp.task('copy-bower', function(cb) {
 /**
  * Move other resources
  */
-gulp.task('copy', ['copy-bower'], function(cb) {
+gulp.task('copy', /**['copy-bower'],**/ function(cb) {
     return gulp.src([
         // Include all
         CONFIG.prefixPath + '**/*',
@@ -67,7 +67,7 @@ gulp.task('copy', ['copy-bower'], function(cb) {
  */
 gulp.task('styles', function() {
     return gulp.src([CONFIG.prefixPath + CONFIG.pathToStylus])
-        .pipe(stylus({compress : true}))
+        .pipe(stylus({compress : true}).on('error', function() {}))
         .pipe(rename({
             extname: '.bundle.css'
         }))

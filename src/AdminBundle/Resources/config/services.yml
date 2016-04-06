@@ -1,4 +1,0 @@
-services:
-    admin.book.form:
-        class: AdminBundle\Admin\BookForm
-        arguments: ["@service_container"]

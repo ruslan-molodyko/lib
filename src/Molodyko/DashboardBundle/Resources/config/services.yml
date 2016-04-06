@@ -2,3 +2,11 @@ services:
     molodyko.dashboard.render.render:
         class: Molodyko\DashboardBundle\Render\Render
         arguments: ["@service_container"]
+
+    molodyko.dashboard.logic.resolver:
+        class: Molodyko\DashboardBundle\Logic\Resolver
+        arguments: ["@service_container"]
+
+    molodyko.dashboard.logic.context:
+        class: Molodyko\DashboardBundle\Logic\Context
+        arguments: ["@service_container"]
