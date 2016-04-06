@@ -6,9 +6,8 @@
  * Time: 0:48
  */
 
-namespace AdminBundle\Logic\Renderable;
+namespace Molodyko\DashboardBundle\Render;
 
-use AdminBundle\Logic\Form\AdminForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Render
@@ -26,15 +25,15 @@ class Render
         return $this->container;
     }
 
-    public function render(AdminForm $adminForm)
+    public function render($adminForm)
     {
         $formBuilder = $this->getFormBuilder();
         $adminForm->configureFormField($formBuilder);
 
         $form = $formBuilder->getForm()->createView();
-        $html = $this->renderView('AdminBundle:Logic/Form:form.html.twig', ['form' => $form]);
+        $html = $this->renderView('DashboardBundle:Form:form.html.twig', ['form' => $form]);
 
-        dump($html);
+        return $html;
     }
 
     protected function getFormBuilder() {
@@ -43,6 +42,6 @@ class Render
 
     protected function renderView($view, $data)
     {
-        return $this->getContainer()->get('templating')->renderResponse($view, $data);
+        return $this->getContainer()->get('templating')->render($view, $data);
     }
 }

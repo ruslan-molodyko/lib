@@ -6,13 +6,12 @@
  * Time: 0:43
  */
 
-namespace AdminBundle\Logic\Form;
+namespace AdminBundle\Admin;
 
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Molodyko\DashboardBundle\Admin\DashboardAbstract;
 use Symfony\Component\Form\FormBuilder;
 
-class AdminForm
+class BookForm extends DashboardAbstract
 {
     public function configureFormField(FormBuilder $formBuilder)
     {

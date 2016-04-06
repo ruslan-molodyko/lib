@@ -38,11 +38,21 @@ gulp.task('scripts', ['copy'], function(done) {
     })
 });
 
+/**
+ * Move other resources
+ */
+gulp.task('copy-bower', function(cb) {
+    return gulp.src([
+        // Include all
+        CONFIG.prefixPath + '../bower_components/**/*'
+    ])
+        .pipe(gulp.dest(CONFIG.pathToDestFolder + 'src/components'));
+});
 
 /**
  * Move other resources
  */
-gulp.task('copy', function(cb) {
+gulp.task('copy', ['copy-bower'], function(cb) {
     return gulp.src([
         // Include all
         CONFIG.prefixPath + '**/*',

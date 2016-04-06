@@ -1,0 +1,4 @@
+services:
+    molodyko.dashboard.render.render:
+        class: Molodyko\DashboardBundle\Render\Render
+        arguments: ["@service_container"]
