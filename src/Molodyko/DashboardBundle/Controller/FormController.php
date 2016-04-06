@@ -2,22 +2,23 @@
 
 namespace Molodyko\DashboardBundle\Controller;
 
+use Molodyko\DashboardBundle\Logic\Context;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AdminBundle\Admin\BookForm;
 
 class FormController extends Controller
 {
     /**
-     * @Route("/form")
+     * @Route("/form/{id}", name="molodyko.dashboard.form")
      */
-    public function indexAction()
+    public function indexAction($id = 'book_mapping')
     {
-        dump($this->get('molodyko.di.config.service'));die;
-        //$this->get('abc');
+        $resolver = $this->get('molodyko.dashboard.logic.resolver');
+        $html = $this->get('molodyko.dashboard.render.render')->render($resolver->getFormType($id));
 
-        $type = $this->get('admin.book.form');
-        $html = $this->get('molodyko.dashboard.render.render')->render($type);
-        return $this->render('AdminBundle:Block:index.html.twig', ['content' => $html]);
+        $context = $this->get('molodyko.dashboard.logic.context');
+        $context->set('current_map_id', $id);
+
+        return $this->render('DashboardBundle:Block:index.html.twig', ['content' => $html, 'context' => $context]);
     }
 }

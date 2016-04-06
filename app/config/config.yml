@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@AdminBundle/Resources/config/services.yml" }
+    - { resource: "@AdminBundle/Resources/config/config.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -86,9 +87,3 @@ vich_uploader:
         image_user:
             uri_prefix:         /images/user
             upload_destination: "%kernel.root_dir%/../www/images/user"
-
-dashboard:
-    mapping:
-        book_mapping:
-            class: AdminBundle\Admin\BookForm
-            enabled: true

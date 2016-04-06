@@ -1,0 +1,8 @@
+dashboard:
+    mapping:
+        book:
+            class: AdminBundle\Admin\BookDashboard
+            enabled: true
+        user:
+            class: AdminBundle\Admin\UserDashboard
+            enabled: true

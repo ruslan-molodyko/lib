@@ -25,20 +25,29 @@ class DashboardExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        // Handle config
-        $this->handleConfig($config, $container);
+        // Sets up services
+        $this->handleServices($config, $container);
+
+        /**
+         * Add custom service for saving config
+         */
+        $definition = new Definition(MetaData::class);
+        $definition->addArgument($config);
+        $definition->addArgument(new Reference('service_container'));
+        $definition->addMethodCall('prepare');
+        $container->setDefinition('molodyko.di.metadata.service', $definition);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
 
     /**
-     * Handle bundle config
+     * Sets up all needed services with prefix
      *
      * @param $config
      * @param ContainerBuilder $container
      */
-    protected function handleConfig($config, ContainerBuilder $container)
+    protected function handleServices($config, ContainerBuilder $container)
     {
         $serviceMappingPrefix = $config['service_mapping_prefix'];
         if (array_key_exists('mapping', $config)) {
@@ -48,19 +57,14 @@ class DashboardExtension extends Extension
 
                 // Check if mapping is enable
                 if ($item['enabled']) {
+
                     $definition = new Definition($item['class']);
                     $definition->addArgument(new Reference('service_container'));
-                    $container->setDefinition($serviceMappingPrefix . $name, $definition);
+                    $fullName = $serviceMappingPrefix . $name;
+                    $container->setDefinition($fullName, $definition);
+                    $enabledMappingServices[] = $fullName;
                 }
             }
         }
-
-        /**
-         * Add custom service for saving config
-         */
-        $definition = new Definition(Configurator::class);
-        $definition->addArgument(['config' => $config]);
-        $definition->addMethodCall('initConfig');
-        $container->setDefinition('molodyko.di.config.service', $definition);
     }
 }
