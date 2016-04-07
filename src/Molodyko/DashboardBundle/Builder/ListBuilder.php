@@ -1,0 +1,26 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: ruslan-molodyko
+ * Date: 07.04.2016
+ * Time: 23:23
+ */
+
+namespace Molodyko\DashboardBundle\Builder;
+
+use Molodyko\DashboardBundle\Field\ListField;
+use Molodyko\DashboardBundle\Util\InjectContainerTrait;
+
+class ListBuilder
+{
+    use InjectContainerTrait;
+
+    protected $fieldContainer = [];
+
+    public function add($field, $options = null)
+    {
+        $this->fieldContainer[] = new ListField($field, $options);
+
+        return $this;
+    }
+}

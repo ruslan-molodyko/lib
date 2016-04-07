@@ -8,53 +8,12 @@
 
 namespace Molodyko\DashboardBundle\Render;
 
-use Molodyko\DashboardBundle\Admin\DashboardAbstract;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilder;
+use Molodyko\DashboardBundle\Admin\Map;
+use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
-class Render
+abstract class Render
 {
-    /** @var  ContainerInterface */
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    protected function getContainer()
-    {
-        return $this->container;
-    }
-
-    public function render(DashboardAbstract $map, $data = null)
-    {
-        $formBuilder = $this->getFormBuilder($data);
-        $map->configureFormField($formBuilder);
-        $this->finalizeFormBuilder($formBuilder);
-
-        $form = $formBuilder->getForm()->createView();
-        $html = $this->renderView('DashboardBundle:Form:form.html.twig', ['form' => $form]);
-
-        return $html;
-    }
-
-    protected function finalizeFormBuilder(FormBuilder $formBuilder)
-    {
-        $formBuilder->add('submit', SubmitType::class);
-    }
-
-    /**
-     * Create form builder
-     *
-     * @param $data
-     * @return \Symfony\Component\Form\FormBuilderInterface
-     */
-    protected function getFormBuilder($data) {
-        return $this->getContainer()->get('form.factory')->createBuilder(FormType::class, $data);
-    }
+    use InjectContainerTrait;
 
     /**
      * Render form
@@ -69,4 +28,6 @@ class Render
     {
         return $this->getContainer()->get('templating')->render($view, $data);
     }
+
+    abstract public function render(Map $map, $data);
 }

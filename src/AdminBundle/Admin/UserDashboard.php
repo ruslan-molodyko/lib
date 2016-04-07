@@ -8,13 +8,19 @@
 
 namespace AdminBundle\Admin;
 
-use Molodyko\DashboardBundle\Admin\DashboardAbstract;
-use Symfony\Component\Form\FormBuilder;
+use Molodyko\DashboardBundle\Admin\Map;
+use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class UserDashboard extends DashboardAbstract
+class UserDashboard extends Map
 {
-    public function configureFormField(FormBuilder $formBuilder)
+    public function configureFormField(FormBuilderInterface $formBuilder)
     {
         $formBuilder->add('email');
+    }
+
+    public function configureListField(ListBuilder $listBuilder)
+    {
+
     }
 }

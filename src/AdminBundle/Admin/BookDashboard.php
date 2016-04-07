@@ -8,17 +8,26 @@
 
 namespace AdminBundle\Admin;
 
-use Molodyko\DashboardBundle\Admin\DashboardAbstract;
-use Symfony\Component\Form\FormBuilder;
+use Molodyko\DashboardBundle\Admin\Map;
+use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class BookDashboard extends DashboardAbstract
+class BookDashboard extends Map
 {
-    public function configureFormField(FormBuilder $formBuilder)
+    public function configureFormField(FormBuilderInterface $formBuilder)
     {
         $formBuilder->add('title')
             ->add('description')
             ->add('isbn')
             ->add('year')
+        ;
+    }
+
+    public function configureListField(ListBuilder $listBuilder)
+    {
+        $listBuilder->add('title')
+            ->add('description')
+            ->add('isbn')
         ;
     }
 }

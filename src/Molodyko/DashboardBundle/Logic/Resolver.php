@@ -2,17 +2,11 @@
 
 namespace Molodyko\DashboardBundle\Logic;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
 class Resolver
 {
-    /** @var ContainerInterface */
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
+    use InjectContainerTrait;
 
     /**
      * Get type by map id
@@ -21,13 +15,13 @@ class Resolver
      * @return object
      * @throws \Exception
      */
-    public function getFormType($id)
+    public function getMap($id)
     {
         $mappingList = $this->container->get('molodyko.di.metadata.service')->getMapping();
         if (!array_key_exists($id, $mappingList)) {
             throw new \Exception(sprintf('Mapping "%s" not found', $id));
         }
-        $type = $this->container->get($mappingList[$id]['service_name']);
-        return $type;
+        $map = $this->container->get($mappingList[$id]['service_name']);
+        return $map;
     }
 }

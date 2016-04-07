@@ -8,10 +8,11 @@
 
 namespace Molodyko\DashboardBundle\Admin;
 
+use Molodyko\DashboardBundle\Builder\ListBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
-abstract class DashboardAbstract
+abstract class Map
 {
     /** @var  ContainerInterface */
     protected $container;
@@ -21,5 +22,7 @@ abstract class DashboardAbstract
         $this->container = $container;
     }
 
-    public abstract function configureFormField(FormBuilder $formBuilder);
+    public abstract function configureFormField(FormBuilderInterface $formBuilder);
+
+    public abstract function configureListField(ListBuilder $listBuilder);
 }

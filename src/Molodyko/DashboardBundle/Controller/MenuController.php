@@ -3,7 +3,6 @@
 namespace Molodyko\DashboardBundle\Controller;
 
 use Molodyko\DashboardBundle\Logic\Context;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MenuController extends Controller
 {

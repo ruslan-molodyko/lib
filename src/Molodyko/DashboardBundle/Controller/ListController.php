@@ -4,14 +4,14 @@ namespace Molodyko\DashboardBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class FormController extends Controller
+class MenuController extends Controller
 {
     /**
-     * @Route("/form/{id}", name="molodyko.dashboard.form")
+     * @Route("/list/{id}", name="molodyko.dashboard.list")
      */
-    public function indexAction($id)
+    public function listAction($id)
     {
-        $html = $this->get('molodyko.dashboard.render.form_render')->render($this->getMap($id));
+        $html = $this->get('molodyko.dashboard.render.list_render')->render($this->getMap($id));
 
         $context = $this->getContext();
         $context->set('current_map_id', $id);

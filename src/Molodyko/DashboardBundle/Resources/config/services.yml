@@ -1,6 +1,11 @@
 services:
-    molodyko.dashboard.render.render:
-        class: Molodyko\DashboardBundle\Render\Render
+
+    molodyko.dashboard.render.list_render:
+        class: Molodyko\DashboardBundle\Render\ListRender
+        arguments: ["@service_container"]
+
+    molodyko.dashboard.render.form_render:
+        class: Molodyko\DashboardBundle\Render\FormRender
         arguments: ["@service_container"]
 
     molodyko.dashboard.logic.resolver:
@@ -9,4 +14,8 @@ services:
 
     molodyko.dashboard.logic.context:
         class: Molodyko\DashboardBundle\Logic\Context
+        arguments: ["@service_container"]
+
+    molodyko.dashboard.builder.list_builder:
+        class: Molodyko\DashboardBundle\Builder\ListBuilder
         arguments: ["@service_container"]
