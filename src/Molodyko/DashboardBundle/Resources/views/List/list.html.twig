@@ -1,0 +1,11 @@
+<table class="table">
+    {% for row in pagination %}
+        <tr>
+            {% for col in row %}
+                <td>
+                    {{ col }}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

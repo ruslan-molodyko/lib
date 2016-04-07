@@ -13,9 +13,14 @@ class ListField
     public $name;
     public $options;
 
-    public function __construct($field, $options)
+    public function __construct($name, $options)
     {
-        $this->field = $field;
+        $this->name = $name;
         $this->options = $options;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }

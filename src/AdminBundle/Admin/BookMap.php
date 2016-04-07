@@ -12,15 +12,22 @@ use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserDashboard extends Map
+class BookMap extends Map
 {
     public function configureFormField(FormBuilderInterface $formBuilder)
     {
-        $formBuilder->add('email');
+        $formBuilder->add('title')
+            ->add('description')
+            ->add('isbn')
+            ->add('year')
+        ;
     }
 
     public function configureListField(ListBuilder $listBuilder)
     {
-
+        $listBuilder->add('title')
+            ->add('description')
+            ->add('isbn')
+        ;
     }
 }

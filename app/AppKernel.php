@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new SystemBundle\SystemBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new AdminBundle\AdminBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Molodyko\DashboardBundle\DashboardBundle(),
         ];
 

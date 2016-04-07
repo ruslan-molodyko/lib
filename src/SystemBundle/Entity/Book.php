@@ -21,7 +21,7 @@ class Book
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
@@ -47,7 +47,7 @@ class Book
     private $isbn;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $year;
 
@@ -105,9 +105,6 @@ class Book
      */
     public function getImage()
     {
-        if ($this->image) {
-            return new File($this->image);
-        }
         return $this->image;
     }
 

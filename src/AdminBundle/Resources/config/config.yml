@@ -1,8 +1,12 @@
 dashboard:
     mapping:
         book:
-            class: AdminBundle\Admin\BookDashboard
+            class: AdminBundle\Admin\BookMap
             enabled: true
+            entity:
+                class: SystemBundle\Entity\Book
         user:
-            class: AdminBundle\Admin\UserDashboard
+            class: AdminBundle\Admin\UserMap
             enabled: true
+            entity:
+                class: SystemBundle\Entity\User

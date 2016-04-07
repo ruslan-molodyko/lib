@@ -8,6 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as ParentController;
 
 abstract class Controller extends ParentController
 {
+    protected function getContainer()
+    {
+        return $this->container;
+    }
+
     /**
      * Get map by id
      *

@@ -13,12 +13,12 @@ use Molodyko\DashboardBundle\Builder\ListBuilder;
 
 class ListRender extends Render
 {
-    public function render(Map $map, $data)
+    public function render($pagination)
     {
-        $listBuilder = $this->getListBuilder($data);
-        $map->configureListField($listBuilder);
+//        $listBuilder = $this->getListBuilder($data);
+//        $map->configureListField($listBuilder);
 
-        $html = $this->renderView('DashboardBundle:Form:list.html.twig', null);
+        $html = $this->renderView('DashboardBundle:List:list.html.twig', ['pagination' => $pagination]);
 
         return $html;
     }

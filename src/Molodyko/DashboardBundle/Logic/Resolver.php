@@ -2,6 +2,7 @@
 
 namespace Molodyko\DashboardBundle\Logic;
 
+use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
 class Resolver
@@ -21,7 +22,9 @@ class Resolver
         if (!array_key_exists($id, $mappingList)) {
             throw new \Exception(sprintf('Mapping "%s" not found', $id));
         }
+        /** @var Map $map */
         $map = $this->container->get($mappingList[$id]['service_name']);
+        $map->setMapConfig($mappingList[$id]);
         return $map;
     }
 }

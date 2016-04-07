@@ -28,6 +28,4 @@ abstract class Render
     {
         return $this->getContainer()->get('templating')->render($view, $data);
     }
-
-    abstract public function render(Map $map, $data);
 }

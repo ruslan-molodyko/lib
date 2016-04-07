@@ -19,3 +19,11 @@ services:
     molodyko.dashboard.builder.list_builder:
         class: Molodyko\DashboardBundle\Builder\ListBuilder
         arguments: ["@service_container"]
+
+    molodyko.dashboard.data.query:
+        class: Molodyko\DashboardBundle\Data\Query
+        arguments: ["@service_container"]
+
+    molodyko.dashboard.util.pagination:
+        class: Molodyko\DashboardBundle\Util\Pagination
+        arguments: ["@service_container"]

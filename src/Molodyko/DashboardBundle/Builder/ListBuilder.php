@@ -23,4 +23,21 @@ class ListBuilder
 
         return $this;
     }
+
+    /**
+     * Get all names of field
+     *
+     * @return array
+     */
+    public function getFieldNames()
+    {
+        $list = [];
+
+        /** @var ListField $field */
+        foreach ($this->fieldContainer as $field) {
+            $list[] = $field->getName();
+        }
+
+        return $list;
+    }
 }

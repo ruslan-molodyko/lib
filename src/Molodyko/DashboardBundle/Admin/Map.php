@@ -9,17 +9,24 @@
 namespace Molodyko\DashboardBundle\Admin;
 
 use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class Map
 {
-    /** @var  ContainerInterface */
-    protected $container;
+    use InjectContainerTrait;
 
-    public function __construct(ContainerInterface $container)
+    protected $mapConfig;
+
+    public function setMapConfig($mapConfig)
     {
-        $this->container = $container;
+        $this->mapConfig = $mapConfig;
+    }
+
+    public function getMapConfig()
+    {
+        return $this->mapConfig;
     }
 
     public abstract function configureFormField(FormBuilderInterface $formBuilder);
