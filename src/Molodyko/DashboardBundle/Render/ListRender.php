@@ -10,8 +10,19 @@ namespace Molodyko\DashboardBundle\Render;
 
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 
+/**
+ * List render
+ *
+ * @package Molodyko\DashboardBundle\Render
+ */
 class ListRender extends Render
 {
+    /**
+     * Render the view
+     *
+     * @param $pagination
+     * @return string
+     */
     public function render($pagination)
     {
         return $this->renderView(
@@ -25,10 +36,9 @@ class ListRender extends Render
     /**
      * Create form builder
      *
-     * @param $data
      * @return ListBuilder
      */
-    protected function getListBuilder($data) {
+    protected function getListBuilder() {
         return $this->getContainer()->get('molodyko.dashboard.builder.list_builder');
     }
 }

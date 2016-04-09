@@ -10,6 +10,11 @@ namespace Molodyko\DashboardBundle\Render;
 
 use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
+/**
+ * Render type
+ *
+ * @package Molodyko\DashboardBundle\Render
+ */
 abstract class Render
 {
     use InjectContainerTrait;

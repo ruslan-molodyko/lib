@@ -5,9 +5,20 @@ namespace Molodyko\DashboardBundle\Controller;
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Logic\Context;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as ParentController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class for extending controller
+ *
+ * @package Molodyko\DashboardBundle\Controller
+ */
 abstract class Controller extends ParentController
 {
+    /**
+     * Get container
+     *
+     * @return ContainerInterface
+     */
     protected function getContainer()
     {
         return $this->container;
@@ -16,7 +27,7 @@ abstract class Controller extends ParentController
     /**
      * Get map by id
      *
-     * @param $id
+     * @param String $id Configured id(name) or alias in config
      * @return Map
      * @throws \Exception
      */

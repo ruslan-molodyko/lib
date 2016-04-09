@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Inject container into the constructor
  *
- * Class InjectContainerTrait
  * @package Molodyko\DashboardBundle\Util
  */
 trait InjectContainerTrait

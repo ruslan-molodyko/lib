@@ -2,10 +2,11 @@
 
 namespace Molodyko\DashboardBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Reference;
-
+/**
+ * Class MetaData for getting defined bundle configuration
+ *
+ * @package Molodyko\DashboardBundle\DependencyInjection
+ */
 class MetaData
 {
     /** @var  Array */
@@ -14,13 +15,17 @@ class MetaData
     /** @var  Array */
     protected $mappingConfig;
 
+    /**
+     * Init config
+     *
+     * @param $config
+     */
     public function __construct($config)
     {
         $this->config = $config;
     }
 
     /**
-     * Init passed config
      * Generate map config
      */
     public function prepare()
@@ -42,6 +47,8 @@ class MetaData
     }
 
     /**
+     * Get full config
+     *
      * @return Array
      */
     public function getConfig()
@@ -50,6 +57,8 @@ class MetaData
     }
 
     /**
+     * Get mapping config
+     *
      * @return Array
      */
     public function getMapping()

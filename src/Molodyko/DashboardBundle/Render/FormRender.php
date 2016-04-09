@@ -13,9 +13,16 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * Form render
+ *
+ * @package Molodyko\DashboardBundle\Render
+ */
 class FormRender extends Render
 {
     /**
+     * Configure map and render the view
+     *
      * @param Map $map
      * @param null $data
      * @return string
@@ -33,6 +40,8 @@ class FormRender extends Render
     }
 
     /**
+     * Add submit button
+     *
      * @param FormBuilderInterface $formBuilder
      */
     protected function finalizeFormBuilder(FormBuilderInterface $formBuilder)

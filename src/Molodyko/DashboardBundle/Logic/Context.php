@@ -3,14 +3,15 @@
 namespace Molodyko\DashboardBundle\Logic;
 
 /**
- * Store parameters
+ * Store context parameters
  *
- * Class Context
  * @package Molodyko\DashboardBundle\Logic
  */
 class Context
 {
     /**
+     * Container of context data
+     *
      * @var array
      */
     protected $container = [];

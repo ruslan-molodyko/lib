@@ -10,10 +10,24 @@ namespace Molodyko\DashboardBundle\Builder;
 
 use Molodyko\DashboardBundle\Field\ListField;
 
+/**
+ * Class for build structure of entity list
+ *
+ * @package Molodyko\DashboardBundle\Builder
+ */
 class ListBuilder
 {
+    /** @var array Store list fields */
     protected $fieldContainer = [];
 
+    /**
+     * Add field
+     * The field name should be equal as field name of entity
+     *
+     * @param $field
+     * @param null $options
+     * @return $this
+     */
     public function add($field, $options = null)
     {
         $this->fieldContainer[] = new ListField($field, $options);

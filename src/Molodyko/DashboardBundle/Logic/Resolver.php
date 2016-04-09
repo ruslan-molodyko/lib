@@ -5,15 +5,20 @@ namespace Molodyko\DashboardBundle\Logic;
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
+/**
+ * Resolve dynamic services
+ *
+ * @package Molodyko\DashboardBundle\Logic
+ */
 class Resolver
 {
     use InjectContainerTrait;
 
     /**
-     * Get type by map id
+     * Get map by id
      *
-     * @param $id
-     * @return object
+     * @param string $id Id of map which configured in config
+     * @return Map
      * @throws \Exception
      */
     public function getMap($id)
