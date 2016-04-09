@@ -21,14 +21,16 @@ class ListRender extends Render
      * Render the view
      *
      * @param $pagination
+     * @param $labels
      * @return string
      */
-    public function render($pagination)
+    public function render($pagination, $labels)
     {
         return $this->renderView(
             'DashboardBundle:List:list.html.twig',
             [
-                'pagination' => $pagination
+                'pagination' => $pagination,
+                'labels' => $labels,
             ]
         );
     }

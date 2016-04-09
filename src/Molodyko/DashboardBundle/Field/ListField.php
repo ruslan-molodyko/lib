@@ -15,15 +15,20 @@ namespace Molodyko\DashboardBundle\Field;
  */
 class ListField
 {
+    const OPTION_LABEL_NAME = 'label';
+
     /**
      * Name of field should be the same as defined entity fiend
      *
      * @var string
      */
-    public $name;
+    protected $name;
 
     /** @var array */
-    public $options;
+    protected $options;
+
+    /** @var string */
+    protected $label;
 
     /**
      * Init field
@@ -35,6 +40,18 @@ class ListField
     {
         $this->name = $name;
         $this->options = $options;
+
+        $this->init();
+    }
+
+    /**
+     * Init options
+     */
+    protected function init()
+    {
+        $this->label = isset($this->options[self::OPTION_LABEL_NAME]) ?
+            $this->options[self::OPTION_LABEL_NAME] :
+            $this->name;
     }
 
     /**
@@ -45,5 +62,15 @@ class ListField
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get label of field
+     *
+     * @return string
+     */
+    public function getLable()
+    {
+        return $this->label;
     }
 }

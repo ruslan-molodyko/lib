@@ -1,7 +1,7 @@
 dashboard:
     service_mapping_prefix: dahsboard_service_prefix_
     list:
-        default_count_page_item: 5
+        default_count_page_item: 2
     mapping:
         book:
             class: AdminBundle\Admin\BookMap

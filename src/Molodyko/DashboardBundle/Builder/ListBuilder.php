@@ -43,12 +43,20 @@ class ListBuilder
     public function getFieldNames()
     {
         $list = [];
-
         /** @var ListField $field */
         foreach ($this->fieldContainer as $field) {
-            $list[] = $field->getName();
+            $list[$field->getName()] = $field->getName();
         }
+        return $list;
+    }
 
+    public function getFieldLabels()
+    {
+        $list = [];
+        /** @var ListField $field */
+        foreach ($this->fieldContainer as $field) {
+            $list[$field->getName()] = $field->getLable();
+        }
         return $list;
     }
 }

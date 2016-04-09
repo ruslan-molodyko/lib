@@ -1,4 +1,11 @@
 <table class="table">
+    <tr>
+        {% for label in labels %}
+            <th>
+                {{ label }}
+            </th>
+        {% endfor %}
+    </tr>
     {% for row in pagination %}
         <tr>
             {% for col in row %}
@@ -9,3 +16,6 @@
         </tr>
     {% endfor %}
 </table>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>

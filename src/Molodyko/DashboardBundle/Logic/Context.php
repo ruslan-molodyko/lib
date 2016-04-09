@@ -4,6 +4,8 @@ namespace Molodyko\DashboardBundle\Logic;
 
 /**
  * Store context parameters
+ * Bind all need parameters together
+ * for correct interaction part of system i.e. menu, form, list ...
  *
  * @package Molodyko\DashboardBundle\Logic
  */

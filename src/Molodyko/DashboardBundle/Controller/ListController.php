@@ -38,7 +38,7 @@ class ListController extends Controller
             $count
         );
 
-        $html = $this->renderList($renderData);
+        $html = $this->renderList($renderData, $listBuilder->getFieldLabels());
         $context = $this->createContext($id);
 
         return $this->render(
@@ -66,11 +66,12 @@ class ListController extends Controller
      * Render list and get html
      *
      * @param $data
+     * @param $labels
      * @return string
      */
-    protected function renderList($data)
+    protected function renderList($data, $labels)
     {
-        $html = $this->get('molodyko.dashboard.render.list_render')->render($data);
+        $html = $this->get('molodyko.dashboard.render.list_render')->render($data, $labels);
         return $html;
     }
 
