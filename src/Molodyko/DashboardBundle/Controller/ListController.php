@@ -6,6 +6,8 @@ use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
+use Molodyko\DashboardBundle\Field\ListField\Container;
+use Molodyko\DashboardBundle\Field\ListField\Field;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,8 +40,8 @@ class ListController extends Controller
             $count
         );
 
-        $html = $this->renderList($renderData, $listBuilder->getFieldLabels());
         $context = $this->createContext($id);
+        $html = $this->renderList($context, $renderData, $listBuilder->getContainer());
 
         return $this->render(
             'DashboardBundle:Block:index.html.twig',
@@ -65,13 +67,14 @@ class ListController extends Controller
     /**
      * Render list and get html
      *
+     * @param Context $context
      * @param $data
-     * @param $labels
+     * @param Container $fieldContainer
      * @return string
      */
-    protected function renderList($data, $labels)
+    protected function renderList($context, $data, $fieldContainer)
     {
-        $html = $this->get('molodyko.dashboard.render.list_render')->render($data, $labels);
+        $html = $this->get('molodyko.dashboard.render.list_render')->render($context, $data, $fieldContainer);
         return $html;
     }
 

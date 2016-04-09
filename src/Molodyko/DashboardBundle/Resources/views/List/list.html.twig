@@ -1,16 +1,35 @@
 <table class="table">
     <tr>
-        {% for label in labels %}
+        {% for field in fieldContainer.all %}
+            {% set label = field.label %}
             <th>
-                {{ label }}
+                {% if not label.isSortable %}
+                    {{ label.label }}
+                {% else %}
+                    {{ knp_pagination_sortable(pagination, label.label, label.entityAlias) }}
+                {% endif %}
             </th>
         {% endfor %}
     </tr>
     {% for row in pagination %}
         <tr>
-            {% for col in row %}
+            {% for key, col in row %}
+                {% set field = fieldContainer.get(key) %}
                 <td>
+                    {% if field.isLinked %}
+                        <a href="
+                        {% if field.link.isCustomRoute %}
+                            {% if field.link.route is iterable %}
+                                {{ path(field.link.route|first, field.link.route[1]) }}">
+                            {% else %}
+                                {{ path(field.link.route) }}">
+                            {% endif %}
+                        {% else %}
+                            {{ path(field.link.route, {'id': context.get('current_map_id') }) }}">
+                        {% endif %}
+                    {% endif %}
                     {{ col }}
+                    {% if field.isLinked %}</a>{% endif %}
                 </td>
             {% endfor %}
         </tr>

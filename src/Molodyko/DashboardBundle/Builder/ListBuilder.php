@@ -8,7 +8,8 @@
 
 namespace Molodyko\DashboardBundle\Builder;
 
-use Molodyko\DashboardBundle\Field\ListField;
+use Molodyko\DashboardBundle\Field\ListField\Container;
+use Molodyko\DashboardBundle\Field\ListField\Field;
 
 /**
  * Class for build structure of entity list
@@ -17,8 +18,28 @@ use Molodyko\DashboardBundle\Field\ListField;
  */
 class ListBuilder
 {
-    /** @var array Store list fields */
-    protected $fieldContainer = [];
+    /**
+     * @var Container Store fields
+     */
+    protected $container;
+
+    /**
+     * Init container
+     */
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
+
+    /**
+     * Get field container
+     *
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
 
     /**
      * Add field
@@ -30,7 +51,7 @@ class ListBuilder
      */
     public function add($field, $options = null)
     {
-        $this->fieldContainer[] = new ListField($field, $options);
+        $this->getContainer()->add(new Field($field, $options));
 
         return $this;
     }
@@ -43,19 +64,9 @@ class ListBuilder
     public function getFieldNames()
     {
         $list = [];
-        /** @var ListField $field */
-        foreach ($this->fieldContainer as $field) {
+        /** @var Field $field */
+        foreach ($this->getContainer()->all() as $field) {
             $list[$field->getName()] = $field->getName();
-        }
-        return $list;
-    }
-
-    public function getFieldLabels()
-    {
-        $list = [];
-        /** @var ListField $field */
-        foreach ($this->fieldContainer as $field) {
-            $list[$field->getName()] = $field->getLable();
         }
         return $list;
     }

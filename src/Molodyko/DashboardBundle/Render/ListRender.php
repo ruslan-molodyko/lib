@@ -9,6 +9,9 @@
 namespace Molodyko\DashboardBundle\Render;
 
 use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Molodyko\DashboardBundle\Field\ListField\Container;
+use Molodyko\DashboardBundle\Field\ListField\Field;
+use Molodyko\DashboardBundle\Logic\Context;
 
 /**
  * List render
@@ -20,17 +23,19 @@ class ListRender extends Render
     /**
      * Render the view
      *
+     * @param Context $context
      * @param $pagination
-     * @param $labels
+     * @param Container $fieldContainer
      * @return string
      */
-    public function render($pagination, $labels)
+    public function render($context, $pagination, $fieldContainer)
     {
         return $this->renderView(
             'DashboardBundle:List:list.html.twig',
             [
+                'context' => $context,
                 'pagination' => $pagination,
-                'labels' => $labels,
+                'fieldContainer' => $fieldContainer,
             ]
         );
     }
