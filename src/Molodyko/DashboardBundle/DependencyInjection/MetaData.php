@@ -15,6 +15,9 @@ class MetaData
     /** @var  Array */
     protected $mappingConfig;
 
+    /** @var  Array */
+    protected $listConfig;
+
     /**
      * Init config
      *
@@ -44,6 +47,11 @@ class MetaData
                 }
             }
         }
+
+        // Init list config
+        if (array_key_exists('list', $this->config)) {
+            $this->listConfig = $this->config['list'];
+        }
     }
 
     /**
@@ -54,6 +62,16 @@ class MetaData
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Get list config
+     *
+     * @return Array
+     */
+    public function getList()
+    {
+        return $this->listConfig;
     }
 
     /**
