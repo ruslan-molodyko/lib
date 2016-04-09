@@ -63,6 +63,13 @@ class Field
     protected $isLinked = false;
 
     /**
+     * Field link instance
+     *
+     * @var Link
+     */
+    protected $link;
+
+    /**
      * Init field
      *
      * @param $name
@@ -72,6 +79,38 @@ class Field
     {
         $this->name = $name;
 
+        $this->initLabel($options);
+        $this->initLink($options);
+    }
+
+    /**
+     * Init link instance
+     *
+     * @param array $options
+     */
+    protected function initLink($options)
+    {
+        $this->isLinked = isset($options[self::OPTION_IS_LINKED]) ?
+            $options[self::OPTION_IS_LINKED] :
+            // If is linked option not defined but route is it the set is linked as true
+            (isset($options[self::OPTION_ROUTE]) ? true : false);
+
+        $route = isset($options[self::OPTION_ROUTE]) ?
+            $options[self::OPTION_ROUTE] :
+            'molodyko.dashboard.form';
+
+        $isCustomRoute = isset($options[self::OPTION_ROUTE]);
+
+        $this->link = new Link($this->name, $route, $isCustomRoute);
+    }
+
+    /**
+     * Init label instance
+     *
+     * @param array $options
+     */
+    protected function initLabel($options)
+    {
         $labelName = isset($options[self::OPTION_LABEL_NAME]) ?
             $options[self::OPTION_LABEL_NAME] :
             $this->name;
@@ -85,18 +124,6 @@ class Field
             Query::PREFIX_MAIN_TABLE . '.' . $this->name;
 
         $this->label = new Label($labelName, $isLabelSortable, $entityAlias);
-
-        $this->isLinked = isset($options[self::OPTION_IS_LINKED]) ?
-            $options[self::OPTION_IS_LINKED] :
-            (isset($options[self::OPTION_ROUTE]) ? true : false);
-
-        $route = isset($options[self::OPTION_ROUTE]) ?
-            $options[self::OPTION_ROUTE] :
-            'molodyko.dashboard.form';
-
-        $isCustomRoute = isset($options[self::OPTION_ROUTE]);
-
-        $this->link = new Link($this->name, $route, $isCustomRoute);
     }
 
     /**

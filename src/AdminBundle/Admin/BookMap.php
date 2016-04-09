@@ -26,7 +26,10 @@ class BookMap extends Map
     public function configureListField(ListBuilder $listBuilder)
     {
         $listBuilder->add('title', ['sortable' => true, 'entity_alias' => 'main.title'])
-            ->add('description', ['route' => ['molodyko.dashboard.form', ['id' => 'dsf']]])
+            ->add('description', [
+                'route' => ['molodyko.dashboard.form', ['id' => 'dsf']],
+                'sortable' => true
+            ])
             ->add('isbn', ['linked' => true])
         ;
     }
