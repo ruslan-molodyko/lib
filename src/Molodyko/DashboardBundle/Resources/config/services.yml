@@ -1,5 +1,4 @@
 services:
-
     molodyko.dashboard.render.list_render:
         class: Molodyko\DashboardBundle\Render\ListRender
         arguments: ["@service_container"]
@@ -14,16 +13,14 @@ services:
 
     molodyko.dashboard.logic.context:
         class: Molodyko\DashboardBundle\Logic\Context
-        arguments: ["@service_container"]
 
     molodyko.dashboard.builder.list_builder:
         class: Molodyko\DashboardBundle\Builder\ListBuilder
-        arguments: ["@service_container"]
 
     molodyko.dashboard.data.query:
         class: Molodyko\DashboardBundle\Data\Query
-        arguments: ["@service_container"]
+        arguments: ["@doctrine.orm.default_entity_manager"]
 
     molodyko.dashboard.util.pagination:
         class: Molodyko\DashboardBundle\Util\Pagination
-        arguments: ["@service_container"]
+        arguments: ["@knp_paginator"]

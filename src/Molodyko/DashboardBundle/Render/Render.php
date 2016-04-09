@@ -8,7 +8,6 @@
 
 namespace Molodyko\DashboardBundle\Render;
 
-use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
 abstract class Render

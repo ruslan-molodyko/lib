@@ -18,12 +18,12 @@ class Resolver
      */
     public function getMap($id)
     {
-        $mappingList = $this->container->get('molodyko.di.metadata.service')->getMapping();
+        $mappingList = $this->getContainer()->get('molodyko.di.metadata.service')->getMapping();
         if (!array_key_exists($id, $mappingList)) {
             throw new \Exception(sprintf('Mapping "%s" not found', $id));
         }
         /** @var Map $map */
-        $map = $this->container->get($mappingList[$id]['service_name']);
+        $map = $this->getContainer()->get($mappingList[$id]['service_name']);
         $map->setMapConfig($mappingList[$id]);
         return $map;
     }

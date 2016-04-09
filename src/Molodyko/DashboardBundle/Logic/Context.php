@@ -1,7 +1,6 @@
 <?php
 
 namespace Molodyko\DashboardBundle\Logic;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Store parameters
@@ -15,14 +14,6 @@ class Context
      * @var array
      */
     protected $container = [];
-
-    /** @var  ContainerInterface */
-    protected $di;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->di = $container;
-    }
 
     /**
      * Get value

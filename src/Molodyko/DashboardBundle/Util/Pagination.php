@@ -9,14 +9,22 @@
 namespace Molodyko\DashboardBundle\Util;
 
 
+use Knp\Component\Pager\Paginator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 class Pagination
 {
-    use InjectContainerTrait;
+    /** @var Paginator */
+    protected $knpPaginator;
+
+    public function __construct(Paginator $knpPaginator)
+    {
+        $this->knpPaginator = $knpPaginator;
+    }
 
     public function getPagination($query, $page, $count)
     {
-        $paginator  = $this->getContainer()->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $page, $count);
+        $pagination = $this->knpPaginator->paginate($query, $page, $count);
         return $pagination;
     }
 }

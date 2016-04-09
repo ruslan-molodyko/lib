@@ -33,7 +33,6 @@ class DashboardExtension extends Extension
          */
         $definition = new Definition(MetaData::class);
         $definition->addArgument($config);
-        $definition->addArgument(new Reference('service_container'));
         $definition->addMethodCall('prepare');
         $container->setDefinition('molodyko.di.metadata.service', $definition);
 
@@ -59,7 +58,6 @@ class DashboardExtension extends Extension
                 if ($item['enabled']) {
 
                     $definition = new Definition($item['class']);
-                    $definition->addArgument(new Reference('service_container'));
                     $fullName = $serviceMappingPrefix . $name;
                     $container->setDefinition($fullName, $definition);
                     $enabledMappingServices[] = $fullName;

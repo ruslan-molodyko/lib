@@ -15,8 +15,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class Map
 {
-    use InjectContainerTrait;
-
     protected $mapConfig;
 
     public function setMapConfig($mapConfig)

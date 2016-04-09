@@ -9,12 +9,9 @@
 namespace Molodyko\DashboardBundle\Builder;
 
 use Molodyko\DashboardBundle\Field\ListField;
-use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 
 class ListBuilder
 {
-    use InjectContainerTrait;
-
     protected $fieldContainer = [];
 
     public function add($field, $options = null)

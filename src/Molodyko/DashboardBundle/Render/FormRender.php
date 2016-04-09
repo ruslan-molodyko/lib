@@ -15,6 +15,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class FormRender extends Render
 {
+    /**
+     * @param Map $map
+     * @param null $data
+     * @return string
+     */
     public function render(Map $map, $data = null)
     {
         $formBuilder = $this->getFormBuilder($data);
@@ -27,6 +32,9 @@ class FormRender extends Render
         return $html;
     }
 
+    /**
+     * @param FormBuilderInterface $formBuilder
+     */
     protected function finalizeFormBuilder(FormBuilderInterface $formBuilder)
     {
         $formBuilder->add('submit', SubmitType::class);
@@ -39,6 +47,8 @@ class FormRender extends Render
      * @return \Symfony\Component\Form\FormBuilderInterface
      */
     protected function getFormBuilder($data) {
-        return $this->getContainer()->get('form.factory')->createBuilder(FormType::class, $data);
+        return $this->getContainer()
+            ->get('form.factory')
+            ->createBuilder(FormType::class, $data);
     }
 }

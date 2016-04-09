@@ -8,18 +8,31 @@
 
 namespace Molodyko\DashboardBundle\Data;
 
-use Molodyko\DashboardBundle\Util\InjectContainerTrait;
+use Doctrine\ORM\EntityManager;
 
 class Query
 {
-    use InjectContainerTrait;
-
     const PREFIX_MAIN_TABLE = 'main';
+
+    /** @var EntityManager */
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->em;
+    }
 
     public function getQuery($entityClass, $page, $count, $select = null)
     {
-        $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
-        $query = $em->createQueryBuilder()
+        $query = $this->getEntityManager()->createQueryBuilder()
             ->select($this->getSelectExpression($select))
             ->from($entityClass, self::PREFIX_MAIN_TABLE)
             ->setFirstResult($page)

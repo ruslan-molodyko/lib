@@ -8,19 +8,18 @@
 
 namespace Molodyko\DashboardBundle\Render;
 
-use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 
 class ListRender extends Render
 {
     public function render($pagination)
     {
-//        $listBuilder = $this->getListBuilder($data);
-//        $map->configureListField($listBuilder);
-
-        $html = $this->renderView('DashboardBundle:List:list.html.twig', ['pagination' => $pagination]);
-
-        return $html;
+        return $this->renderView(
+            'DashboardBundle:List:list.html.twig',
+            [
+                'pagination' => $pagination
+            ]
+        );
     }
 
     /**
