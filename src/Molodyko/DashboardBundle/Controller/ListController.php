@@ -6,8 +6,6 @@ use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
-use Molodyko\DashboardBundle\Field\ListField\Container;
-use Molodyko\DashboardBundle\Field\ListField\Field;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,80 +22,41 @@ class ListController extends Controller
      */
     public function listAction(Request $request, $id)
     {
-        list($page, $count) = $this->getQueryOptions($request);
+        $page = $request->query->get('page', 1);
+
+        $metaData = $this->getContainer()->get('molodyko.di.metadata.service');
+        $count = $metaData->getList()[Configuration::DEFAULT_COUNT_PAGE_ITEM_NODE_NAME];
 
         /** @var Map $map */
         $map = $this->getMap($id);
+
         /** @var ListBuilder $listBuilder */
-        $listBuilder = $this->getListBuilder($map);
+        $listBuilder = $this->getContainer()->get('molodyko.dashboard.builder.list_builder');
+        $map->configureListField($listBuilder);
 
-        $this->buildMapConfiguration($map, $listBuilder);
+        $query = $this->getContainer()
+            ->get('molodyko.dashboard.data.query')
+            ->getQuery(
+                $this->getEntityClassName($map),
+                $listBuilder->getFieldNames(),
+                $page,
+                $count
+            );
 
-        $renderData = $this->getRenderData(
-            $this->getEntityClassName($map),
-            $listBuilder->getFieldNames(),
-            $page,
-            $count
-        );
+        $renderData = $this->getContainer()
+            ->get('molodyko.dashboard.util.pagination')
+            ->getPagination($query, $page, $count);
 
-        $context = $this->createContext($id);
-        $html = $this->renderList($context, $renderData, $listBuilder->getContainer());
+        $context = $this->get('molodyko.dashboard.logic.context');
+        $context->set('current_map_id', $id);
+
+        $html = $this->get('molodyko.dashboard.render.list_render')
+            ->render($context, $renderData, $listBuilder->getContainer());
 
         return $this->render(
             'DashboardBundle:Block:index.html.twig',
             ['content' => $html, 'context' => $context]
         );
-    }
-
-    /**
-     * Create context with set params
-     *
-     * @param $id
-     * @return Context
-     * @throws \Exception
-     */
-    protected function createContext($id)
-    {
-        $context = $this->get('molodyko.dashboard.logic.context');
-        $context->set('current_map_id', $id);
-
-        return $context;
-    }
-
-    /**
-     * Render list and get html
-     *
-     * @param Context $context
-     * @param $data
-     * @param Container $fieldContainer
-     * @return string
-     */
-    protected function renderList($context, $data, $fieldContainer)
-    {
-        $html = $this->get('molodyko.dashboard.render.list_render')->render($context, $data, $fieldContainer);
-        return $html;
-    }
-
-    /**
-     * Get knp pagination for rendering
-     *
-     * @param $entityClassName
-     * @param $enabledFields
-     * @param $page
-     * @param $count
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface
-     */
-    protected function getRenderData($entityClassName, $enabledFields, $page, $count)
-    {
-        $query = $this->getContainer()
-            ->get('molodyko.dashboard.data.query')
-            ->getQuery($entityClassName, $enabledFields, $page, $count);
-
-        $pagination = $this->getContainer()
-            ->get('molodyko.dashboard.util.pagination')
-            ->getPagination($query, $page, $count);
-
-        return $pagination;
     }
 
     /**
@@ -111,52 +70,5 @@ class ListController extends Controller
         return $map->getMapConfig()
             [Configuration::MAPPING_ENTITY_NODE_NAME]
             [Configuration::MAPPING_ENTITY_CLASS_NODE_NAME];
-    }
-
-    /**
-     * Build map configuration
-     *
-     * @param Map $map
-     * @param ListBuilder $listBuilder
-     */
-    protected function buildMapConfiguration(Map $map, ListBuilder $listBuilder)
-    {
-        $map->configureListField($listBuilder);
-    }
-
-    /**
-     * Get list builder
-     *
-     * @param Map $map
-     * @return ListBuilder
-     */
-    protected function getListBuilder(Map $map)
-    {
-        return $this->getContainer()->get('molodyko.dashboard.builder.list_builder');
-    }
-
-    /**
-     * Get page start and count items on page
-     *
-     * @param Request $request
-     * @return array
-     */
-    protected function getQueryOptions(Request $request)
-    {
-        return [
-            $request->query->get('page', 1),
-            $this->getCountItemsOnPage()
-        ];
-    }
-
-    /**
-     * Count item on page
-     *
-     * @return int
-     */
-    protected function getCountItemsOnPage()
-    {
-        $metaData = $this->getContainer()->get('molodyko.di.metadata.service');
-        return $metaData->getList()[Configuration::DEFAULT_COUNT_PAGE_ITEM_NODE_NAME];
     }
 }

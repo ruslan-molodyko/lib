@@ -39,15 +39,24 @@ class Link
     protected $isCustomRoute;
 
     /**
+     * Need show link in field or not
+     *
+     * @var string
+     */
+    protected $isLinked;
+
+    /**
      * Init link
      *
-     * @param $fieldName
-     * @param $route
-     * @param $isCustomRoute
+     * @param string $fieldName
+     * @param bool $isLinked
+     * @param mixed $route
+     * @param bool $isCustomRoute
      */
-    public function __construct($fieldName, $route, $isCustomRoute)
+    public function __construct($fieldName, $isLinked, $route, $isCustomRoute)
     {
         $this->fieldName = $fieldName;
+        $this->isLinked = $isLinked;
         $this->route = $route;
         $this->isCustomRoute = $isCustomRoute;
     }
@@ -81,5 +90,15 @@ class Link
     public function isCustomRoute()
     {
         return $this->isCustomRoute;
+    }
+
+    /**
+     * Show link or not
+     *
+     * @return string
+     */
+    public function isLinked()
+    {
+        return $this->isLinked;
     }
 }

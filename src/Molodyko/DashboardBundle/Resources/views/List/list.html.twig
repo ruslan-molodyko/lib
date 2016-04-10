@@ -16,7 +16,7 @@
             {% for key, col in row %}
                 {% set field = fieldContainer.get(key) %}
                 <td>
-                    {% if field.isLinked %}
+                    {% if field.link.isLinked %}
                         <a href="
                         {% if field.link.isCustomRoute %}
                             {% if field.link.route is iterable %}
@@ -29,7 +29,7 @@
                         {% endif %}
                     {% endif %}
                     {{ col }}
-                    {% if field.isLinked %}</a>{% endif %}
+                    {% if field.link.isLinked %}</a>{% endif %}
                 </td>
             {% endfor %}
         </tr>

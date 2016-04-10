@@ -56,13 +56,6 @@ class Field
     protected $label;
 
     /**
-     * Is linked value
-     *
-     * @var bool
-     */
-    protected $isLinked = false;
-
-    /**
      * Field link instance
      *
      * @var Link
@@ -90,7 +83,7 @@ class Field
      */
     protected function initLink($options)
     {
-        $this->isLinked = isset($options[self::OPTION_IS_LINKED]) ?
+        $isLinked = isset($options[self::OPTION_IS_LINKED]) ?
             $options[self::OPTION_IS_LINKED] :
             // If is linked option not defined but route is it the set is linked as true
             (isset($options[self::OPTION_ROUTE]) ? true : false);
@@ -101,7 +94,7 @@ class Field
 
         $isCustomRoute = isset($options[self::OPTION_ROUTE]);
 
-        $this->link = new Link($this->name, $route, $isCustomRoute);
+        $this->link = new Link($this->name, $isLinked, $route, $isCustomRoute);
     }
 
     /**
@@ -124,16 +117,6 @@ class Field
             Query::PREFIX_MAIN_TABLE . '.' . $this->name;
 
         $this->label = new Label($labelName, $isLabelSortable, $entityAlias);
-    }
-
-    /**
-     * Link is linked
-     *
-     * @return bool
-     */
-    public function isLinked()
-    {
-        return $this->isLinked;
     }
 
     /**
