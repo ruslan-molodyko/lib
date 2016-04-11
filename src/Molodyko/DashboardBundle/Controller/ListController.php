@@ -7,7 +7,7 @@ use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
-use Molodyko\DashboardBundle\Field\ListField\ListContainer;
+use Molodyko\DashboardBundle\Field\ListField\ListCollection;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,7 +50,7 @@ class ListController extends Controller
             ->get('molodyko.dashboard.util.pagination')
             ->getPagination($query, $page, $count);
 
-        $listCollection = new ListContainer($id);
+        $listCollection = new ListCollection($id);
         foreach ($renderData as $list) {
             $fieldContainer = $listBuilder->getContainer();
             foreach ($list as $name => $field) {

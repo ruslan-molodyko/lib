@@ -14,7 +14,7 @@ use Molodyko\DashboardBundle\Util\TraversableCollectionTrait;
  *
  * @package Molodyko\DashboardBundle\Field
  */
-class ListContainer implements \Iterator
+class ListCollection implements \Iterator
 {
     use TraversableCollectionTrait;
 
@@ -48,9 +48,9 @@ class ListContainer implements \Iterator
     /**
      * Add field container to collection
      *
-     * @param FieldContainer $fieldContainer
+     * @param FieldCollection $fieldContainer
      */
-    public function add(FieldContainer $fieldContainer)
+    public function add(FieldCollection $fieldContainer)
     {
         $this->collection[$fieldContainer->getId()] = $fieldContainer;
     }
@@ -98,7 +98,7 @@ class ListContainer implements \Iterator
     /**
      * Get all field containers from collection
      *
-     * @return FieldContainer[]
+     * @return FieldCollection[]
      */
     public function all()
     {

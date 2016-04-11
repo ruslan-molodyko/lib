@@ -14,7 +14,7 @@ use Molodyko\DashboardBundle\Util\TraversableCollectionTrait;
  *
  * @package Molodyko\DashboardBundle\Field
  */
-class FieldContainer implements \Iterator
+class FieldCollection implements \Iterator
 {
     use TraversableCollectionTrait;
 

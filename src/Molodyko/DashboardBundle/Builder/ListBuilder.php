@@ -9,7 +9,7 @@
 namespace Molodyko\DashboardBundle\Builder;
 
 use Molodyko\DashboardBundle\Field\ListField\Field;
-use Molodyko\DashboardBundle\Field\ListField\FieldContainer;
+use Molodyko\DashboardBundle\Field\ListField\FieldCollection;
 
 /**
  * Class for build structure of entity list
@@ -19,7 +19,7 @@ use Molodyko\DashboardBundle\Field\ListField\FieldContainer;
 class ListBuilder
 {
     /**
-     * @var FieldContainer Store fields
+     * @var FieldCollection Store fields
      */
     protected $container;
 
@@ -28,13 +28,13 @@ class ListBuilder
      */
     public function __construct()
     {
-        $this->container = new FieldContainer(null);
+        $this->container = new FieldCollection(null);
     }
 
     /**
      * Get field container
      *
-     * @return FieldContainer
+     * @return FieldCollection
      */
     public function getContainer()
     {
