@@ -178,4 +178,10 @@ class Field
     {
         return $this->link;
     }
+
+    public function __clone()
+    {
+        $this->link = clone $this->link;
+        $this->label = clone $this->label;
+    }
 }

@@ -45,4 +45,11 @@ class Entity
         return $repository
             ->findOneBy(['id' => $id]);
     }
+
+    public function save($entity)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($entity);
+        $em->flush();
+    }
 }

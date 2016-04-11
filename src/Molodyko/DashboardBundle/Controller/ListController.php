@@ -52,7 +52,7 @@ class ListController extends Controller
 
         $listCollection = new ListCollection($id);
         foreach ($renderData as $list) {
-            $fieldContainer = $listBuilder->getContainer();
+            $fieldContainer = clone $listBuilder->getContainer();
             foreach ($list as $name => $field) {
                 if ($name != 'id') {
                     $fieldContainer->get($name)->setValue($field);
@@ -61,6 +61,9 @@ class ListController extends Controller
             $fieldContainer->setId($list['id']);
             $listCollection->add($fieldContainer);
         }
+
+        //dump($renderData);die;
+        //dump($listCollection->all());die;
 
         $renderData->setItems($listCollection->all());
 

@@ -114,4 +114,11 @@ class FieldCollection implements \Iterator
     {
         return $this->collection;
     }
+
+    public function __clone()
+    {
+        foreach ($this->collection as $name => $field) {
+            $this->collection[$name] = clone $field;
+        }
+    }
 }
