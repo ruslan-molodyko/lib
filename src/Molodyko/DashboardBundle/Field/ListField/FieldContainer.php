@@ -7,21 +7,53 @@
  */
 
 namespace Molodyko\DashboardBundle\Field\ListField;
-use Molodyko\DashboardBundle\Data\Query;
+use Molodyko\DashboardBundle\Util\TraversableCollectionTrait;
 
 /**
  * Store fields
  *
  * @package Molodyko\DashboardBundle\Field
  */
-class Container
+class FieldContainer implements \Iterator
 {
+    use TraversableCollectionTrait;
+
     /**
-     * Field container
+     * Id of collection
      *
-     * @var Field[]
+     * @var mixed
      */
-    public $container = [];
+    protected $id;
+
+    /**
+     * Init field container
+     *
+     * @param $id
+     */
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get id of field container
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set id of field container
+     *
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Add field to collection
@@ -30,7 +62,7 @@ class Container
      */
     public function add(Field $field)
     {
-        $this->container[$field->getName()] = $field;
+        $this->collection[$field->getName()] = $field;
     }
 
     /**
@@ -42,7 +74,7 @@ class Container
     public function remove($fieldName)
     {
         if ($this->has($fieldName)) {
-            unset($this->container[$fieldName]);
+            unset($this->collection[$fieldName]);
             return true;
         }
         return false;
@@ -56,7 +88,7 @@ class Container
      */
     public function has($fieldName)
     {
-        return array_key_exists($fieldName, $this->container);
+        return array_key_exists($fieldName, $this->collection);
     }
 
     /**
@@ -68,7 +100,7 @@ class Container
     public function get($fieldName)
     {
         if ($this->has($fieldName)) {
-            return $this->container[$fieldName];
+            return $this->collection[$fieldName];
         }
         return null;
     }
@@ -80,6 +112,6 @@ class Container
      */
     public function all()
     {
-        return $this->container;
+        return $this->collection;
     }
 }

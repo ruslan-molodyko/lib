@@ -63,6 +63,13 @@ class Field
     protected $link;
 
     /**
+     * Value of the field
+     *
+     * @var mixed
+     */
+    protected $value;
+
+    /**
      * Init field
      *
      * @param $name
@@ -74,6 +81,29 @@ class Field
 
         $this->initLabel($options);
         $this->initLink($options);
+    }
+
+    /**
+     * Get value of field
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set value of field
+     *
+     * @param $value
+     * @return Field
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
     }
 
     /**

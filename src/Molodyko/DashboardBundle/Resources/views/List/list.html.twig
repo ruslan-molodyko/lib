@@ -11,11 +11,9 @@
             </th>
         {% endfor %}
     </tr>
-    {{ dump(pagination) }}
-    {% for row in pagination %}
+    {% for list in pagination %}
         <tr>
-            {% for key, col in row %}
-                {% set field = fieldContainer.get(key) %}
+            {% for field in list %}
                 <td>
                     {% if field.link.isLinked %}
                         <a href="
@@ -26,10 +24,10 @@
                                 {{ path(field.link.route) }}">
                             {% endif %}
                         {% else %}
-                            {{ path(field.link.route, {'name': context.get('current_map_id'), 'id': 0 }) }}">
+                            {{ path(field.link.route, {'name': context.get('current_map_id'), 'id': list.id }) }}">
                         {% endif %}
                     {% endif %}
-                    {{ col }}
+                    {{ field.value }}
                     {% if field.link.isLinked %}</a>{% endif %}
                 </td>
             {% endfor %}

@@ -8,8 +8,8 @@
 
 namespace Molodyko\DashboardBundle\Builder;
 
-use Molodyko\DashboardBundle\Field\ListField\Container;
 use Molodyko\DashboardBundle\Field\ListField\Field;
+use Molodyko\DashboardBundle\Field\ListField\FieldContainer;
 
 /**
  * Class for build structure of entity list
@@ -18,11 +18,8 @@ use Molodyko\DashboardBundle\Field\ListField\Field;
  */
 class ListBuilder
 {
-    /** @var string Id name of entity */
-    protected static $idName = 'id';
-
     /**
-     * @var Container Store fields
+     * @var FieldContainer Store fields
      */
     protected $container;
 
@@ -31,13 +28,13 @@ class ListBuilder
      */
     public function __construct()
     {
-        $this->container = new Container();
+        $this->container = new FieldContainer(null);
     }
 
     /**
      * Get field container
      *
-     * @return Container
+     * @return FieldContainer
      */
     public function getContainer()
     {
@@ -62,19 +59,15 @@ class ListBuilder
     /**
      * Get all names of field
      *
-     * @param bool $injectId Inject id name to names
      * @return array
      */
-    public function getFieldNames($injectId = true)
+    public function getFieldNames()
     {
         $list = [];
         /** @var Field $field */
         foreach ($this->getContainer()->all() as $field) {
             $list[$field->getName()] = $field->getName();
         }
-//        if ($injectId) {
-//            $list[self::$idName] = self::$idName;
-//        }
         return $list;
     }
 }

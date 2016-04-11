@@ -2,10 +2,12 @@
 
 namespace Molodyko\DashboardBundle\Controller;
 
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\ListBuilder;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
+use Molodyko\DashboardBundle\Field\ListField\ListContainer;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,9 +45,24 @@ class ListController extends Controller
                 $count
             );
 
+        /** @var SlidingPagination $renderData */
         $renderData = $this->getContainer()
             ->get('molodyko.dashboard.util.pagination')
             ->getPagination($query, $page, $count);
+
+        $listCollection = new ListContainer($id);
+        foreach ($renderData as $list) {
+            $fieldContainer = $listBuilder->getContainer();
+            foreach ($list as $name => $field) {
+                if ($name != 'id') {
+                    $fieldContainer->get($name)->setValue($field);
+                }
+            }
+            $fieldContainer->setId($list['id']);
+            $listCollection->add($fieldContainer);
+        }
+
+        $renderData->setItems($listCollection->all());
 
         $context = $this->get('molodyko.dashboard.logic.context');
         $context->set('current_map_id', $id);

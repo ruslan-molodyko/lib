@@ -35,6 +35,8 @@ class Query
      */
     public function getQuery($entityClass, $select, $page, $count)
     {
+        $select += ['id'];
+
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select($this->getSelectExpression($select))
             ->from($entityClass, self::PREFIX_MAIN_TABLE)
