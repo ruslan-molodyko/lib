@@ -11,6 +11,7 @@
             </th>
         {% endfor %}
     </tr>
+    {{ dump(pagination) }}
     {% for row in pagination %}
         <tr>
             {% for key, col in row %}
@@ -25,7 +26,7 @@
                                 {{ path(field.link.route) }}">
                             {% endif %}
                         {% else %}
-                            {{ path(field.link.route, {'id': context.get('current_map_id') }) }}">
+                            {{ path(field.link.route, {'name': context.get('current_map_id'), 'id': 0 }) }}">
                         {% endif %}
                     {% endif %}
                     {{ col }}

@@ -18,6 +18,9 @@ use Molodyko\DashboardBundle\Field\ListField\Field;
  */
 class ListBuilder
 {
+    /** @var string Id name of entity */
+    protected static $idName = 'id';
+
     /**
      * @var Container Store fields
      */
@@ -59,15 +62,19 @@ class ListBuilder
     /**
      * Get all names of field
      *
+     * @param bool $injectId Inject id name to names
      * @return array
      */
-    public function getFieldNames()
+    public function getFieldNames($injectId = true)
     {
         $list = [];
         /** @var Field $field */
         foreach ($this->getContainer()->all() as $field) {
             $list[$field->getName()] = $field->getName();
         }
+//        if ($injectId) {
+//            $list[self::$idName] = self::$idName;
+//        }
         return $list;
     }
 }

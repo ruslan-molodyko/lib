@@ -3,6 +3,7 @@
 namespace Molodyko\DashboardBundle\Controller;
 
 use Molodyko\DashboardBundle\Admin\Map;
+use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\Logic\Context;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as ParentController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -35,6 +36,19 @@ abstract class Controller extends ParentController
     {
         $resolver = $this->get('molodyko.dashboard.logic.resolver');
         return $resolver->getMap($id);
+    }
+
+    /**
+     * Get class name of map entity
+     *
+     * @param Map $map
+     * @return mixed
+     */
+    protected function getEntityClassNameByMap(Map $map)
+    {
+        return $map->getMapConfig()
+            [Configuration::MAPPING_ENTITY_NODE_NAME]
+            [Configuration::MAPPING_ENTITY_CLASS_NODE_NAME];
     }
 
     /**

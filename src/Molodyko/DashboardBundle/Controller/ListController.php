@@ -37,7 +37,7 @@ class ListController extends Controller
         $query = $this->getContainer()
             ->get('molodyko.dashboard.data.query')
             ->getQuery(
-                $this->getEntityClassName($map),
+                $this->getEntityClassNameByMap($map),
                 $listBuilder->getFieldNames(),
                 $page,
                 $count
@@ -57,18 +57,5 @@ class ListController extends Controller
             'DashboardBundle:Block:index.html.twig',
             ['content' => $html, 'context' => $context]
         );
-    }
-
-    /**
-     * Get class name of map entity
-     *
-     * @param Map $map
-     * @return mixed
-     */
-    protected function getEntityClassName(Map $map)
-    {
-        return $map->getMapConfig()
-            [Configuration::MAPPING_ENTITY_NODE_NAME]
-            [Configuration::MAPPING_ENTITY_CLASS_NODE_NAME];
     }
 }

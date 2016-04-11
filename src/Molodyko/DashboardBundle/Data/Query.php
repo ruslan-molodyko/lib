@@ -9,6 +9,7 @@
 namespace Molodyko\DashboardBundle\Data;
 
 use Doctrine\ORM\EntityManager;
+use Molodyko\DashboardBundle\Util\InjectEntityManagerTrait;
 
 /**
  * Class Query
@@ -21,26 +22,7 @@ class Query
     /** Prefix which will be use to highlight the main table in query */
     const PREFIX_MAIN_TABLE = 'main';
 
-    /** @var EntityManager */
-    protected $em;
-
-    /**
-     * Init entity manager
-     *
-     * @param EntityManager $em
-     */
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
-     * @return EntityManager
-     */
-    public function getEntityManager()
-    {
-        return $this->em;
-    }
+    use InjectEntityManagerTrait;
 
     /**
      * Get query by entity and parameters

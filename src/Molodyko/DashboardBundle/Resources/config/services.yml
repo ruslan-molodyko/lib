@@ -21,6 +21,10 @@ services:
         class: Molodyko\DashboardBundle\Data\Query
         arguments: ["@doctrine.orm.default_entity_manager"]
 
+    molodyko.dashboard.data.entity:
+        class: Molodyko\DashboardBundle\Data\Entity
+        arguments: ["@doctrine.orm.default_entity_manager"]
+
     molodyko.dashboard.util.pagination:
         class: Molodyko\DashboardBundle\Util\Pagination
         arguments: ["@knp_paginator"]
