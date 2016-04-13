@@ -4,7 +4,7 @@ namespace Molodyko\DashboardBundle\Controller;
 
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Molodyko\DashboardBundle\Admin\Map;
-use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
 use Molodyko\DashboardBundle\Collection\ListCollection;
@@ -17,10 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @package Molodyko\DashboardBundle\Controller
  */
-class ListController extends Controller
+class CollectionController extends Controller
 {
     /**
-     * @Route("/list/{id}", name="molodyko.dashboard.list")
+     * @Route("/collection/{id}", name="molodyko.dashboard.list")
      */
     public function listAction(Request $request, $id)
     {
@@ -32,15 +32,15 @@ class ListController extends Controller
         /** @var Map $map */
         $map = $this->getMap($id);
 
-        /** @var ListBuilder $listBuilder */
-        $listBuilder = $this->getContainer()->get('molodyko.dashboard.builder.list_builder');
-        $map->configureListField($listBuilder);
+        /** @var CollectionBuilder $collectionBuilder */
+        $collectionBuilder = $this->getContainer()->get('molodyko.dashboard.builder.collection_builder');
+        $map->configureListField($collectionBuilder);
 
         $query = $this->getContainer()
             ->get('molodyko.dashboard.data.query')
             ->getQuery(
                 $this->getEntityClassNameByMap($map),
-                $listBuilder->getFieldNames(),
+                $collectionBuilder->getFieldNames(),
                 $page,
                 $count
             );
@@ -52,7 +52,7 @@ class ListController extends Controller
 
         $listCollection = new ListCollection($id);
         foreach ($renderData as $list) {
-            $fieldContainer = clone $listBuilder->getContainer();
+            $fieldContainer = clone $collectionBuilder->getContainer();
             foreach ($list as $name => $field) {
                 if ($name != 'id') {
                     $fieldContainer->get($name)->setValue($field);
@@ -71,7 +71,7 @@ class ListController extends Controller
         $context->set('current_map_id', $id);
 
         $html = $this->get('molodyko.dashboard.render.list_render')
-            ->render($context, $renderData, $listBuilder->getContainer());
+            ->render($context, $renderData, $collectionBuilder->getContainer());
 
         return $this->render(
             'DashboardBundle:Block:index.html.twig',

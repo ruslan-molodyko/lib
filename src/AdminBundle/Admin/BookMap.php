@@ -9,7 +9,7 @@
 namespace AdminBundle\Admin;
 
 use Molodyko\DashboardBundle\Admin\Map;
-use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class BookMap extends Map
@@ -23,7 +23,7 @@ class BookMap extends Map
         ;
     }
 
-    public function configureListField(ListBuilder $listBuilder)
+    public function configureListField(CollectionBuilder $listBuilder)
     {
         $listBuilder->add('title', ['sortable' => true, 'linked' => true])
             ->add('description')

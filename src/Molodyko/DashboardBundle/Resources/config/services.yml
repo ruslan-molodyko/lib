@@ -14,8 +14,8 @@ services:
     molodyko.dashboard.logic.context:
         class: Molodyko\DashboardBundle\Logic\Context
 
-    molodyko.dashboard.builder.list_builder:
-        class: Molodyko\DashboardBundle\Builder\ListBuilder
+    molodyko.dashboard.builder.collection_builder:
+        class: Molodyko\DashboardBundle\Builder\CollectionBuilder
 
     molodyko.dashboard.data.query:
         class: Molodyko\DashboardBundle\Data\Query

@@ -179,6 +179,9 @@ class Field
         return $this->link;
     }
 
+    /**
+     * Clone field
+     */
     public function __clone()
     {
         $this->link = clone $this->link;

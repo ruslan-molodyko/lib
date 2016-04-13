@@ -16,7 +16,7 @@ use Molodyko\DashboardBundle\Collection\FieldCollection;
  *
  * @package Molodyko\DashboardBundle\Builder
  */
-class ListBuilder
+class CollectionBuilder
 {
     /**
      * @var FieldCollection Store fields

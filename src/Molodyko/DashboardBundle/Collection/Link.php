@@ -15,7 +15,6 @@ namespace Molodyko\DashboardBundle\Collection;
  */
 class Link
 {
-
     /**
      * Related field name
      *

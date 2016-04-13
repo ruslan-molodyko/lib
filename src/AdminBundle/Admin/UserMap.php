@@ -9,7 +9,7 @@
 namespace AdminBundle\Admin;
 
 use Molodyko\DashboardBundle\Admin\Map;
-use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class UserMap extends Map
@@ -19,7 +19,7 @@ class UserMap extends Map
         $formBuilder->add('email');
     }
 
-    public function configureListField(ListBuilder $listBuilder)
+    public function configureListField(CollectionBuilder $listBuilder)
     {
         $listBuilder
             ->add('email');

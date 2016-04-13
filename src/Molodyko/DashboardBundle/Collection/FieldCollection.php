@@ -115,6 +115,9 @@ class FieldCollection implements \Iterator
         return $this->collection;
     }
 
+    /**
+     * Clone collection
+     */
     public function __clone()
     {
         foreach ($this->collection as $name => $field) {

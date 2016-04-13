@@ -8,7 +8,7 @@
 
 namespace Molodyko\DashboardBundle\Admin;
 
-use Molodyko\DashboardBundle\Builder\ListBuilder;
+use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -51,8 +51,8 @@ abstract class Map
     /**
      * Configure list
      *
-     * @param ListBuilder $listBuilder
+     * @param CollectionBuilder $collectionBuilder
      * @return mixed
      */
-    public abstract function configureListField(ListBuilder $listBuilder);
+    public abstract function configureListField(CollectionBuilder $collectionBuilder);
 }
