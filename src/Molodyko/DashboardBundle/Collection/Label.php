@@ -6,13 +6,12 @@
  * Time: 23:30
  */
 
-namespace Molodyko\DashboardBundle\Field\ListField;
-use Molodyko\DashboardBundle\Data\Query;
+namespace Molodyko\DashboardBundle\Collection;
 
 /**
  * Define label of list
  *
- * @package Molodyko\DashboardBundle\Field
+ * @package Molodyko\DashboardBundle\Collection
  */
 class Label
 {

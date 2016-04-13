@@ -25,9 +25,10 @@ class BookMap extends Map
 
     public function configureListField(ListBuilder $listBuilder)
     {
-        $listBuilder->add('title', ['sortable' => true, 'entity_alias' => 'main.title'])
-            ->add('description', ['sortable' => true])
-            ->add('isbn', ['linked' => true])
+        $listBuilder->add('title', ['sortable' => true, 'linked' => true])
+            ->add('description')
+            ->add('year')
+            ->add('isbn')
         ;
     }
 }

@@ -6,12 +6,12 @@
  * Time: 23:30
  */
 
-namespace Molodyko\DashboardBundle\Field\ListField;
+namespace Molodyko\DashboardBundle\Collection;
 
 /**
  * Define link of label
  *
- * @package Molodyko\DashboardBundle\Field
+ * @package Molodyko\DashboardBundle\Collection
  */
 class Link
 {

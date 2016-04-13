@@ -6,13 +6,13 @@
  * Time: 23:30
  */
 
-namespace Molodyko\DashboardBundle\Field\ListField;
+namespace Molodyko\DashboardBundle\Collection;
 use Molodyko\DashboardBundle\Data\Query;
 
 /**
  * Define single list field
  *
- * @package Molodyko\DashboardBundle\Field
+ * @package Molodyko\DashboardBundle\Collection
  */
 class Field
 {

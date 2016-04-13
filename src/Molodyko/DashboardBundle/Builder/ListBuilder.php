@@ -8,8 +8,8 @@
 
 namespace Molodyko\DashboardBundle\Builder;
 
-use Molodyko\DashboardBundle\Field\ListField\Field;
-use Molodyko\DashboardBundle\Field\ListField\FieldCollection;
+use Molodyko\DashboardBundle\Collection\Field;
+use Molodyko\DashboardBundle\Collection\FieldCollection;
 
 /**
  * Class for build structure of entity list

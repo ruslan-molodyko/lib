@@ -6,13 +6,13 @@
  * Time: 23:30
  */
 
-namespace Molodyko\DashboardBundle\Field\ListField;
+namespace Molodyko\DashboardBundle\Collection;
 use Molodyko\DashboardBundle\Util\TraversableCollectionTrait;
 
 /**
  * Store field containers
  *
- * @package Molodyko\DashboardBundle\Field
+ * @package Molodyko\DashboardBundle\Collection
  */
 class ListCollection implements \Iterator
 {

@@ -9,7 +9,7 @@
 namespace Molodyko\DashboardBundle\Render;
 
 use Molodyko\DashboardBundle\Builder\ListBuilder;
-use Molodyko\DashboardBundle\Field\ListField\FieldContainer;
+use Molodyko\DashboardBundle\Collection\FieldContainer;
 use Molodyko\DashboardBundle\Logic\Context;
 
 /**

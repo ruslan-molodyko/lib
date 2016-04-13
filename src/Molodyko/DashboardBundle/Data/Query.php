@@ -8,7 +8,6 @@
 
 namespace Molodyko\DashboardBundle\Data;
 
-use Doctrine\ORM\EntityManager;
 use Molodyko\DashboardBundle\Util\InjectEntityManagerTrait;
 
 /**
