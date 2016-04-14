@@ -29,3 +29,10 @@ services:
     molodyko.dashboard.util.pagination:
         class: Molodyko\DashboardBundle\Util\Pagination
         arguments: ["@knp_paginator"]
+
+    molodyko.dashboard.extension.collection.link:
+        class: Molodyko\DashboardBundle\Extension\Collection\LinkExtension
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+

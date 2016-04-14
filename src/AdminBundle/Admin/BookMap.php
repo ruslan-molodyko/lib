@@ -10,7 +10,6 @@ namespace AdminBundle\Admin;
 
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
-use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class BookMap extends Map
@@ -29,9 +28,7 @@ class BookMap extends Map
         $listBuilder->add('title', ['sortable' => true, 'linked' => true])
             ->add('description')
             ->add('year')
-            ->add('isbn', ['handler' => function(FieldConvertValueEvent $event) {
-                $event->setValue($event->getValue() . '+++');
-            }])
+            ->add('isbn')
         ;
     }
 }

@@ -81,6 +81,16 @@ class Link
     }
 
     /**
+     * Set the route
+     *
+     * @param array $route First argument is the route name and second is arguments
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+    }
+
+    /**
      * If this is custom route then you can define any route with parameters
      * But if not it will be route to form of entity editing
      *

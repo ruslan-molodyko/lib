@@ -147,8 +147,7 @@ class Field
             (isset($options[self::OPTION_ROUTE]) ? true : false);
 
         $route = isset($options[self::OPTION_ROUTE]) ?
-            $options[self::OPTION_ROUTE] :
-            'molodyko.dashboard.form';
+            $options[self::OPTION_ROUTE] : null;
 
         $isCustomRoute = isset($options[self::OPTION_ROUTE]);
 

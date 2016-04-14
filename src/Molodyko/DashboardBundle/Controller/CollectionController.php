@@ -5,11 +5,9 @@ namespace Molodyko\DashboardBundle\Controller;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
-use Molodyko\DashboardBundle\Collection\Field;
-use Molodyko\DashboardBundle\Collection\FieldGetValueEvent;
+use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
-use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,6 +71,10 @@ class CollectionController extends Controller
 
                     // Set converted value
                     $field->setValue($value);
+
+                    if ($field->getLink()->isLinked() && !$field->getLink()->isCustomRoute()) {
+                        $field->getLink()->setRoute(['molodyko.dashboard.form', ['name' => $id, 'id' => $list['id']]]);
+                    }
                 }
             }
             // Set id of field container

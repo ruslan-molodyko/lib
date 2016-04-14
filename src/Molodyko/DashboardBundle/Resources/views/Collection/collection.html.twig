@@ -15,20 +15,9 @@
         <tr>
             {% for field in list %}
                 <td>
-                    {% if field.link.isLinked %}
-                        <a href="
-                        {% if field.link.isCustomRoute %}
-                            {% if field.link.route is iterable %}
-                                {{ path(field.link.route|first, field.link.route[1]) }}">
-                            {% else %}
-                                {{ path(field.link.route) }}">
-                            {% endif %}
-                        {% else %}
-                            {{ path(field.link.route, {'name': context.get('current_map_id'), 'id': list.id }) }}">
-                        {% endif %}
-                    {% endif %}
-                    {{ field.value }}
-                    {% if field.link.isLinked %}</a>{% endif %}
+                    {{ link_collection_start(field, {"class": "ccc"}) }}
+                        {{ field.value }}
+                    {{ link_collection_end(field) }}
                 </td>
             {% endfor %}
         </tr>
