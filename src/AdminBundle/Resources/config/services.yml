@@ -1,0 +1,5 @@
+services:
+    year.handler:
+        class: AdminBundle\Admin\YearHandler
+        tags:
+            - { name: kernel.event_listener, event: field.before.getting.value.year , method: handle }

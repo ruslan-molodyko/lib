@@ -49,10 +49,10 @@ abstract class Map
     public abstract function configureFormField(FormBuilderInterface $formBuilder);
 
     /**
-     * Configure list
+     * Configure collection
      *
      * @param CollectionBuilder $collectionBuilder
      * @return mixed
      */
-    public abstract function configureListField(CollectionBuilder $collectionBuilder);
+    public abstract function configureCollectionField(CollectionBuilder $collectionBuilder);
 }

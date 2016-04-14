@@ -3,7 +3,7 @@
 	<div class="menu__wrapper">
         {% for id, item in mapping %}
             <a
-                href="{{ path('molodyko.dashboard.list', {'id': id}) }}"
+                href="{{ path('molodyko.dashboard.collection', {'id': id}) }}"
                 class="menu__item list-group-item {% if id == currentMapId %}active{% endif %}"
             >
                 {{ id }}

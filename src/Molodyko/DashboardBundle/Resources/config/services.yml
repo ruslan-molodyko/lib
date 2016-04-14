@@ -16,6 +16,7 @@ services:
 
     molodyko.dashboard.builder.collection_builder:
         class: Molodyko\DashboardBundle\Builder\CollectionBuilder
+        arguments: ["@event_dispatcher"]
 
     molodyko.dashboard.data.query:
         class: Molodyko\DashboardBundle\Data\Query

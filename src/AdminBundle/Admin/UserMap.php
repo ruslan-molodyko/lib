@@ -19,7 +19,7 @@ class UserMap extends Map
         $formBuilder->add('email');
     }
 
-    public function configureListField(CollectionBuilder $listBuilder)
+    public function configureCollectionField(CollectionBuilder $listBuilder)
     {
         $listBuilder
             ->add('email');

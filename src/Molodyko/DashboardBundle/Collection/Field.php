@@ -8,6 +8,7 @@
 
 namespace Molodyko\DashboardBundle\Collection;
 use Molodyko\DashboardBundle\Data\Query;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Define single list field
@@ -16,6 +17,11 @@ use Molodyko\DashboardBundle\Data\Query;
  */
 class Field
 {
+    /**
+     * Option name of event
+     */
+    const OPTION_EVENT_GET_VALUE = 'handler';
+
     /**
      * Option name label text
      */
@@ -70,6 +76,13 @@ class Field
     protected $value;
 
     /**
+     * Callback of event
+     *
+     * @var callable
+     */
+    protected $callBackHandlerEvent;
+
+    /**
      * Init field
      *
      * @param $name
@@ -81,6 +94,7 @@ class Field
 
         $this->initLabel($options);
         $this->initLink($options);
+        $this->initEvent($options);
     }
 
     /**
@@ -104,6 +118,20 @@ class Field
         $this->value = $value;
 
         return $this;
+    }
+
+    /**
+     * Init event callbacks
+     *
+     * @param $options
+     */
+    protected function initEvent($options)
+    {
+        if (isset($options[self::OPTION_EVENT_GET_VALUE])) {
+            if (is_callable($options[self::OPTION_EVENT_GET_VALUE])) {
+                $this->callBackHandlerEvent = $options[self::OPTION_EVENT_GET_VALUE];
+            }
+        }
     }
 
     /**
@@ -157,6 +185,16 @@ class Field
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get handler callback
+     *
+     * @return callable|null
+     */
+    public function getCallbackHandler()
+    {
+        return $this->callBackHandlerEvent;
     }
 
     /**

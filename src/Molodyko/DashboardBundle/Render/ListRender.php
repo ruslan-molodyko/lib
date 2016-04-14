@@ -8,8 +8,8 @@
 
 namespace Molodyko\DashboardBundle\Render;
 
-use Molodyko\DashboardBundle\Builder\ListBuilder;
-use Molodyko\DashboardBundle\Collection\FieldContainer;
+use Molodyko\DashboardBundle\Builder\CollectionBuilder;
+use Molodyko\DashboardBundle\Collection\FieldCollection;
 use Molodyko\DashboardBundle\Logic\Context;
 
 /**
@@ -24,27 +24,18 @@ class ListRender extends Render
      *
      * @param Context $context
      * @param $pagination
-     * @param FieldContainer $fieldContainer
+     * @param FieldCollection $fieldContainer
      * @return string
      */
     public function render($context, $pagination, $fieldContainer)
     {
         return $this->renderView(
-            'DashboardBundle:List:list.html.twig',
+            'DashboardBundle:Collection:collection.html.twig',
             [
                 'context' => $context,
                 'pagination' => $pagination,
                 'fieldContainer' => $fieldContainer,
             ]
         );
-    }
-
-    /**
-     * Create form builder
-     *
-     * @return ListBuilder
-     */
-    protected function getListBuilder() {
-        return $this->getContainer()->get('molodyko.dashboard.builder.list_builder');
     }
 }

@@ -5,22 +5,24 @@ namespace Molodyko\DashboardBundle\Controller;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
+use Molodyko\DashboardBundle\Collection\Field;
+use Molodyko\DashboardBundle\Collection\FieldGetValueEvent;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Molodyko\DashboardBundle\DependencyInjection\MetaData;
-use Molodyko\DashboardBundle\Collection\ListCollection;
+use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Get request and render list page
+ * Get request and render collection page
  *
  * @package Molodyko\DashboardBundle\Controller
  */
 class CollectionController extends Controller
 {
     /**
-     * @Route("/collection/{id}", name="molodyko.dashboard.list")
+     * @Route("/collection/{id}", name="molodyko.dashboard.collection")
      */
     public function listAction(Request $request, $id)
     {
@@ -34,8 +36,11 @@ class CollectionController extends Controller
 
         /** @var CollectionBuilder $collectionBuilder */
         $collectionBuilder = $this->getContainer()->get('molodyko.dashboard.builder.collection_builder');
-        $map->configureListField($collectionBuilder);
 
+        // Configure collection fields
+        $map->configureCollectionField($collectionBuilder);
+
+        // Get query for knp paginator
         $query = $this->getContainer()
             ->get('molodyko.dashboard.data.query')
             ->getQuery(
@@ -50,29 +55,42 @@ class CollectionController extends Controller
             ->get('molodyko.dashboard.util.pagination')
             ->getPagination($query, $page, $count);
 
-        $listCollection = new ListCollection($id);
+        // Set data to the fields collection
+        $listCollection = [];
         foreach ($renderData as $list) {
-            $fieldContainer = clone $collectionBuilder->getContainer();
-            foreach ($list as $name => $field) {
-                if ($name != 'id') {
-                    $fieldContainer->get($name)->setValue($field);
+            $fieldCollection = clone $collectionBuilder->getCollection();
+            foreach ($list as $name => $value) {
+                // Skip all not reserved fields
+                if ($fieldCollection->has($name)) {
+
+                    // Get field
+                    $field = $fieldCollection->get($name);
+
+                    // Create and dispatch event
+                    $event = new FieldConvertValueEvent($field->getName(), $value);
+                    $this->get('event_dispatcher')->dispatch($event->getEventName(), $event);
+
+                    // Set converted value
+                    $field->setValue($value);
                 }
             }
-            $fieldContainer->setId($list['id']);
-            $listCollection->add($fieldContainer);
+            // Set id of field container
+            $fieldCollection->setId($list['id']);
+            $listCollection[$fieldCollection->getId()] = $fieldCollection;
         }
 
-        //dump($renderData);die;
-        //dump($listCollection->all());die;
+        // Set items to pagination
+        $renderData->setItems($listCollection);
 
-        $renderData->setItems($listCollection->all());
-
+        // Create and set context
         $context = $this->get('molodyko.dashboard.logic.context');
         $context->set('current_map_id', $id);
 
+        // Render html
         $html = $this->get('molodyko.dashboard.render.list_render')
-            ->render($context, $renderData, $collectionBuilder->getContainer());
+            ->render($context, $renderData, $collectionBuilder->getCollection());
 
+        // Render main page
         return $this->render(
             'DashboardBundle:Block:index.html.twig',
             ['content' => $html, 'context' => $context]

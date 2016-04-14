@@ -10,6 +10,8 @@ namespace Molodyko\DashboardBundle\Builder;
 
 use Molodyko\DashboardBundle\Collection\Field;
 use Molodyko\DashboardBundle\Collection\FieldCollection;
+use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 
 /**
  * Class for build structure of entity list
@@ -21,14 +23,22 @@ class CollectionBuilder
     /**
      * @var FieldCollection Store fields
      */
-    protected $container;
+    protected $collection;
+
+    /**
+     * @var TraceableEventDispatcher
+     */
+    protected $eventDispatcher;
 
     /**
      * Init container
+     *
+     * @param TraceableEventDispatcher $eventDispatcher
      */
-    public function __construct()
+    public function __construct(TraceableEventDispatcher $eventDispatcher)
     {
-        $this->container = new FieldCollection(null);
+        $this->collection = new FieldCollection(null);
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -36,9 +46,9 @@ class CollectionBuilder
      *
      * @return FieldCollection
      */
-    public function getContainer()
+    public function getCollection()
     {
-        return $this->container;
+        return $this->collection;
     }
 
     /**
@@ -51,7 +61,9 @@ class CollectionBuilder
      */
     public function add($field, $options = null)
     {
-        $this->getContainer()->add(new Field($field, $options));
+        $field = new Field($field, $options);
+        $this->initEvents($field);
+        $this->getCollection()->add($field);
 
         return $this;
     }
@@ -65,9 +77,34 @@ class CollectionBuilder
     {
         $list = [];
         /** @var Field $field */
-        foreach ($this->getContainer()->all() as $field) {
+        foreach ($this->getCollection()->all() as $field) {
             $list[$field->getName()] = $field->getName();
         }
         return $list;
+    }
+
+    /**
+     * Init all events of field
+     *
+     * @param Field $field
+     */
+    protected function initEvents(Field $field)
+    {
+        $handler = $field->getCallbackHandler();
+        if (is_callable($handler)) {
+            // Add event listener
+            $this->getEventDispatcher()->addListener(
+                FieldConvertValueEvent::getEventNameByField($field->getName()),
+                $field->getCallbackHandler()
+            );
+        }
+    }
+
+    /**
+     * @return TraceableEventDispatcher
+     */
+    protected function getEventDispatcher()
+    {
+        return $this->eventDispatcher;
     }
 }
