@@ -1,3 +1,4 @@
+{{ theme_link_collection("DashboardBundle:Extension/Collection:test_theme_collection.html.twig") }}
 <table class="table">
     <tr>
         {% for field in fieldContainer.all %}
@@ -15,7 +16,7 @@
         <tr>
             {% for field in list %}
                 <td>
-                    {{ link_collection_start(field, {"class": "ccc"}) }}
+                    {{ link_collection_start(field) }}
                         {{ field.value }}
                     {{ link_collection_end(field) }}
                 </td>

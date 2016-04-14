@@ -1,24 +1,20 @@
 {% block link_collection_start %}
-    {% if mode == 'start' %}
-        {% if field.link.isLinked %}
-            <a
-                {% if attr['href'] is not defined %}
-                    href="
-                    {% if field.link.route is iterable %}
-                        {{ path(field.link.route|first, field.link.route[1]) }}
-                    {% else %}
-                        {{ path(field.link.route) }}
-                    {% endif %}
-                    "
+    {% if field.link.isLinked %}
+        <a
+            {% if attr['href'] is not defined %}
+                href="
+                {% if field.link.route is iterable %}
+                    {{ path(field.link.route|first, field.link.route[1]) }}
+                {% else %}
+                    {{ path(field.link.route) }}
                 {% endif %}
-                {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
-            >
-        {% endif %}
+                "
+            {% endif %}
+            {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
+        >
     {% endif %}
 {% endblock %}
 
 {% block link_collection_end %}
-    {% if mode == 'end' %}
-        {% if field.link.isLinked %}</a>{% endif %}
-    {% endif %}
+    {% if field.link.isLinked %}</a>{% endif %}
 {% endblock %}

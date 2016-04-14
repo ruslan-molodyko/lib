@@ -6,19 +6,25 @@
  * Time: 1:07
  */
 
-namespace Molodyko\DashboardBundle\Extension\Collection;
+namespace Molodyko\DashboardBundle\TwigExtension\Collection;
 
 use Molodyko\DashboardBundle\Collection\Field;
-use Molodyko\DashboardBundle\Util\InjectContainerTrait;
+use Molodyko\DashboardBundle\TwigExtension\TwigExtension;
 
-class LinkExtension extends \Twig_Extension {
+class LinkExtension extends TwigExtension {
 
-    use InjectContainerTrait;
+    /**
+     * Initial template for extension
+     *
+     * @var string
+     */
+    protected $template = 'DashboardBundle:Extension/Collection:link_collection.html.twig';
 
     /**
      * {@inheritdoc}
      */
     public function getFunctions() {
+
         return array(
             'link_collection_start' => new \Twig_Function_Method(
                 $this,
@@ -31,6 +37,10 @@ class LinkExtension extends \Twig_Extension {
                 'linkCollectionEnd',
                 // Disable auto escaping of html code
                 ['is_safe' => ['html']]
+            ),
+            'theme_link_collection' => new \Twig_Function_Method(
+                $this,
+                'setTemplate'
             )
         );
     }
@@ -44,7 +54,7 @@ class LinkExtension extends \Twig_Extension {
      */
     public function linkCollectionStart(Field $field, array $attr = null)
     {
-        return $this->linkCollection('start', $field, $attr);
+        return $this->renderBlock('link_collection_start', ['field' => $field, 'attr' => $attr]);
     }
 
     /**
@@ -55,35 +65,6 @@ class LinkExtension extends \Twig_Extension {
      */
     public function linkCollectionEnd(Field $field)
     {
-        return $this->linkCollection('end', $field);
-    }
-
-    /**
-     * Link collection renderer
-     *
-     * @param $mode
-     * @param Field $field
-     * @param array $attr
-     * @return string
-     * @throws \Exception
-     * @throws \Twig_Error
-     */
-    protected function linkCollection($mode, Field $field, $attr = null) {
-        return $this->getContainer()->get('templating')
-            ->render(
-                "DashboardBundle:Extension/Collection:link_collection.html.twig",
-                [
-                    'mode' => $mode,
-                    'field' => $field,
-                    'attr' => $attr
-                ]
-            );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName() {
-        return 'link_collection';
+        return $this->renderBlock('link_collection_end', ['field' => $field]);
     }
 }
