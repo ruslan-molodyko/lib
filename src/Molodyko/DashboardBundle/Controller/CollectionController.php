@@ -36,6 +36,7 @@ class CollectionController extends Controller
 
         /** @var CollectionBuilder $collectionBuilder */
         $collectionBuilder = $this->getContainer()->get('molodyko.dashboard.builder.collection_builder');
+        $collectionBuilder->setMapId($id);
 
         // Configure collection fields
         $map->configureCollectionField($collectionBuilder);
@@ -67,7 +68,7 @@ class CollectionController extends Controller
                     $field = $fieldCollection->get($name);
 
                     // Create and dispatch event
-                    $event = new FieldConvertValueEvent($field->getName(), $value);
+                    $event = new FieldConvertValueEvent($id, $field->getName(), $value);
                     $this->get('event_dispatcher')->dispatch($event->getEventName(), $event);
 
                     // Set converted value

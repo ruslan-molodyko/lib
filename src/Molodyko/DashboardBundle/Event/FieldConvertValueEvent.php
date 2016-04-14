@@ -19,7 +19,7 @@ class FieldConvertValueEvent extends Event
     /**
      * Before getting value
      */
-    const EVENT_NAME = 'field.before.getting.value';
+    const EVENT_NAME = 'field.convert.value';
 
     /**
      * Value of the field
@@ -36,11 +36,19 @@ class FieldConvertValueEvent extends Event
     protected $fieldName;
 
     /**
+     * Entity id
+     *
+     * @var string
+     */
+    protected $entityName;
+
+    /**
      * @param string $fieldName
      * @param mixed $value Value of the field passed by link
      */
-    public function __construct($fieldName, &$value)
+    public function __construct($entityName, $fieldName, &$value)
     {
+        $this->entityId = $entityName;
         $this->fieldName = $fieldName;
         $this->value = &$value;
     }
@@ -84,15 +92,32 @@ class FieldConvertValueEvent extends Event
      */
     public function getEventName()
     {
-        return self::getEventNameByField($this->fieldName);
+        return self::getEventNameByField($this->getEntityName(), $this->getFieldName());
     }
 
     /**
+     * @param $entityName
      * @param $fieldName
      * @return string
      */
-    public static function getEventNameByField($fieldName)
+    public static function getEventNameByField($entityName, $fieldName)
     {
-        return self::EVENT_NAME . '.' . $fieldName;
+        return self::EVENT_NAME . '.' . $entityName . '.' . $fieldName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return $this->entityId;
+    }
+
+    /**
+     * @param string $entityName
+     */
+    public function setEntityName($entityName)
+    {
+        $this->entityId = $entityName;
     }
 }

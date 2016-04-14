@@ -1,6 +1,7 @@
 services:
     # You can specify event listener(handler) when performing converting the field value by service or pass the callback
+    # http://symfony.com/doc/current/components/event_dispatcher/introduction.html
     year.handler:
         class: AdminBundle\Admin\YearHandler
         tags:
-            - { name: kernel.event_listener, event: field.before.getting.value.year , method: handle }
+            - { name: kernel.event_listener, event: field.convert.value.book.year , method: handle }

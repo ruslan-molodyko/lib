@@ -31,6 +31,11 @@ class CollectionBuilder
     protected $eventDispatcher;
 
     /**
+     * @var string
+     */
+    protected $mapId;
+
+    /**
      * Init container
      *
      * @param TraceableEventDispatcher $eventDispatcher
@@ -94,7 +99,7 @@ class CollectionBuilder
         if (is_callable($handler)) {
             // Add event listener
             $this->getEventDispatcher()->addListener(
-                FieldConvertValueEvent::getEventNameByField($field->getName()),
+                FieldConvertValueEvent::getEventNameByField($this->getMapId(), $field->getName()),
                 $field->getCallbackHandler()
             );
         }
@@ -106,5 +111,21 @@ class CollectionBuilder
     protected function getEventDispatcher()
     {
         return $this->eventDispatcher;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMapId()
+    {
+        return $this->mapId;
+    }
+
+    /**
+     * @param string $mapId
+     */
+    public function setMapId($mapId)
+    {
+        $this->mapId = $mapId;
     }
 }
