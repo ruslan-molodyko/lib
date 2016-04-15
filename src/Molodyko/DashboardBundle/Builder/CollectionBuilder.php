@@ -89,6 +89,21 @@ class CollectionBuilder
     }
 
     /**
+     * Get all labels of field
+     *
+     * @return array
+     */
+    public function getFieldLabels()
+    {
+        $list = [];
+        /** @var Field $field */
+        foreach ($this->getCollection()->all() as $field) {
+            $list[$field->getName()] = $field->getLabel();
+        }
+        return $list;
+    }
+
+    /**
      * Init all events of field
      *
      * @param Field $field

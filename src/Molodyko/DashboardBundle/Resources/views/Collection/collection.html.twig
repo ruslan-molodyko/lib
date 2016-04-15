@@ -1,8 +1,7 @@
 {{ theme_link_collection("DashboardBundle:Extension/Collection:test_theme_collection.html.twig") }}
 <table class="table">
     <tr>
-        {% for field in fieldContainer.all %}
-            {% set label = field.label %}
+        {% for label in labels %}
             <th>
                 {% if not label.isSortable %}
                     {{ label.label }}

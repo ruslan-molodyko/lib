@@ -10,6 +10,7 @@ namespace Molodyko\DashboardBundle\Render;
 
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Molodyko\DashboardBundle\Collection\FieldCollection;
+use Molodyko\DashboardBundle\Collection\Label;
 use Molodyko\DashboardBundle\Logic\Context;
 
 /**
@@ -24,17 +25,17 @@ class ListRender extends Render
      *
      * @param Context $context
      * @param $pagination
-     * @param FieldCollection $fieldContainer
+     * @param Label[] $fieldContainer
      * @return string
      */
-    public function render($context, $pagination, $fieldContainer)
+    public function render($context, $pagination, $labels)
     {
         return $this->renderView(
             'DashboardBundle:Collection:collection.html.twig',
             [
                 'context' => $context,
                 'pagination' => $pagination,
-                'fieldContainer' => $fieldContainer,
+                'labels' => $labels,
             ]
         );
     }

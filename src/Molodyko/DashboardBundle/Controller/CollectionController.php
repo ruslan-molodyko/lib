@@ -42,7 +42,7 @@ class CollectionController extends Controller
 
         // Render html
         $html = $this->get('molodyko.dashboard.render.list_render')
-            ->render($context, $paginationData, $this->getCollectionBuilder()->getCollection());
+            ->render($context, $paginationData, $this->getCollectionBuilder()->getFieldLabels());
 
         // Render main page
         return $this->render(
