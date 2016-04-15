@@ -31,7 +31,7 @@ services:
         arguments: ["@knp_paginator"]
 
     molodyko.dashboard.extension.collection.link:
-        class: Molodyko\DashboardBundle\TwigExtension\Collection\LinkExtension
+        class: Molodyko\DashboardBundle\TwigExtension\Collection\LinkFunction
         arguments: ["@service_container"]
         tags:
             - { name: twig.extension }

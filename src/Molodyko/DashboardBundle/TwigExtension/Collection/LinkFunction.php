@@ -11,7 +11,7 @@ namespace Molodyko\DashboardBundle\TwigExtension\Collection;
 use Molodyko\DashboardBundle\Collection\Field;
 use Molodyko\DashboardBundle\TwigExtension\TwigExtension;
 
-class LinkExtension extends TwigExtension {
+class LinkFunction extends TwigExtension {
 
     /**
      * Initial template for extension

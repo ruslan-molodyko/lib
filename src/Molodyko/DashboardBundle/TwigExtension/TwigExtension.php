@@ -11,6 +11,12 @@ namespace Molodyko\DashboardBundle\TwigExtension;
 use Molodyko\DashboardBundle\Util\InjectContainerTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class TwigExtension.
+ * http://kiwwito.com/extending-twig-in-symfony-2-add-custom-functions/
+ *
+ * @package Molodyko\DashboardBundle\TwigExtension
+ */
 abstract class TwigExtension extends \Twig_Extension {
 
     use InjectContainerTrait;
@@ -27,6 +33,9 @@ abstract class TwigExtension extends \Twig_Extension {
      */
     protected $template;
 
+    /**
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
