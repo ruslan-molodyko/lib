@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{% block dashbaord_layout_head %}
+    <head>
+        {% block dashboard_head_meta %}
+            <base href="/lib/www/">
+            <meta charset="UTF-8" />
+        {% endblock %}
+        <title>{% block dashboard_head_title %}Welcome!{% endblock %}</title>
+        {% block dashboard_head_stylesheets %}
+            <link rel="stylesheet" href="src/components/bootstrap/dist/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="src/css/dashboard/build.bundle.css" />
+        {% endblock %}
+        {% block dashboard_head_favicon %}
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% endblock %}
+    </head>
+{% endblock %}
+{% block dashboard_body %}
+    <body>
+        {% block dashboard_container %}
+            <div class="container">
+                {% block dashboard_container_header %}
+                    <div class="container__header"></div>
+                {% endblock %}
+                {% block dashboard_container_menu %}
+                    <div class="container__menu">
+                        {{ render(controller('DashboardBundle:Menu:menu', {'context': context})) }}
+                    </div>
+                {% endblock %}
+                {% block dashboard_container_content %}
+                    <div class="container__content">
+                        {% block dashboard_content %}{% endblock %}
+                    </div>
+                {% endblock %}
+                {% block dashboard_footer %}
+                    <div class="container__footer"></div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    {% block dashboard_javascripts %}{% endblock %}
+    </body>
+{% endblock %}
+</html>
