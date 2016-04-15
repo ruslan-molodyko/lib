@@ -9,6 +9,7 @@
 namespace AdminBundle\Admin;
 
 use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class YearHandler
 {

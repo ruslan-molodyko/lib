@@ -24,40 +24,101 @@ class CollectionController extends Controller
      */
     public function listAction(Request $request, $id)
     {
+        // Configure map
+        $this->configureMap($id);
+
+        /** @var SlidingPagination $paginationData */
+        $paginationData = $this->getPaginationData($id, $request);
+
+        /** @var array $listCollection create list collection */
+        $listCollection = $this->getListCollection($id, $paginationData);
+
+        // Set items to pagination
+        $paginationData->setItems($listCollection);
+
+        // Create and set context
+        $context = $this->get('molodyko.dashboard.logic.context');
+        $context->set('current_map_id', $id);
+
+        // Render html
+        $html = $this->get('molodyko.dashboard.render.list_render')
+            ->render($context, $paginationData, $this->getCollectionBuilder()->getCollection());
+
+        // Render main page
+        return $this->render(
+            'DashboardBundle:Block:index.html.twig',
+            ['content' => $html, 'context' => $context]
+        );
+    }
+
+    /**
+     * Get collection builder
+     *
+     * @return CollectionBuilder
+     */
+    protected function getCollectionBuilder()
+    {
+        return $this->getContainer()->get('molodyko.dashboard.builder.collection_builder');
+    }
+
+    /**
+     * Configure map
+     *
+     * @param $id
+     */
+    protected function configureMap($id)
+    {
+        /** @var Map $map */
+        $map = $this->getMap($id);
+        $this->getCollectionBuilder()->setMapId($id);
+
+        // Configure collection fields
+        $map->configureCollectionField($this->getCollectionBuilder());
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return SlidingPagination
+     */
+    protected function getPaginationData($id, Request $request)
+    {
         $page = $request->query->get('page', 1);
 
         $metaData = $this->getContainer()->get('molodyko.di.metadata.service');
         $count = $metaData->getList()[Configuration::DEFAULT_COUNT_PAGE_ITEM_NODE_NAME];
 
-        /** @var Map $map */
-        $map = $this->getMap($id);
-
-        /** @var CollectionBuilder $collectionBuilder */
-        $collectionBuilder = $this->getContainer()->get('molodyko.dashboard.builder.collection_builder');
-        $collectionBuilder->setMapId($id);
-
-        // Configure collection fields
-        $map->configureCollectionField($collectionBuilder);
-
         // Get query for knp paginator
         $query = $this->getContainer()
             ->get('molodyko.dashboard.data.query')
             ->getQuery(
-                $this->getEntityClassNameByMap($map),
-                $collectionBuilder->getFieldNames(),
+                $this->getEntityClassNameByMap($this->getMap($id)),
+                $this->getCollectionBuilder()->getFieldNames(),
                 $page,
                 $count
             );
 
-        /** @var SlidingPagination $renderData */
-        $renderData = $this->getContainer()
+        /** @var SlidingPagination $paginationData */
+        $paginationData = $this->getContainer()
             ->get('molodyko.dashboard.util.pagination')
             ->getPagination($query, $page, $count);
 
+        return $paginationData;
+    }
+
+    /**
+     * Set value to field collection
+     *
+     * @param $id
+     * @param SlidingPagination $paginationData
+     * @return array
+     */
+    protected function getListCollection($id, SlidingPagination $paginationData)
+    {
         // Set data to the fields collection
         $listCollection = [];
-        foreach ($renderData as $list) {
-            $fieldCollection = clone $collectionBuilder->getCollection();
+        foreach ($paginationData as $list) {
+            $fieldCollection = clone $this->getCollectionBuilder()->getCollection();
             foreach ($list as $name => $value) {
                 // Skip all not reserved fields
                 if ($fieldCollection->has($name)) {
@@ -81,22 +142,6 @@ class CollectionController extends Controller
             $fieldCollection->setId($list['id']);
             $listCollection[$fieldCollection->getId()] = $fieldCollection;
         }
-
-        // Set items to pagination
-        $renderData->setItems($listCollection);
-
-        // Create and set context
-        $context = $this->get('molodyko.dashboard.logic.context');
-        $context->set('current_map_id', $id);
-
-        // Render html
-        $html = $this->get('molodyko.dashboard.render.list_render')
-            ->render($context, $renderData, $collectionBuilder->getCollection());
-
-        // Render main page
-        return $this->render(
-            'DashboardBundle:Block:index.html.twig',
-            ['content' => $html, 'context' => $context]
-        );
+        return $listCollection;
     }
 }
