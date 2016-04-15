@@ -11,14 +11,14 @@ namespace Molodyko\DashboardBundle\TwigExtension\Collection;
 use Molodyko\DashboardBundle\Collection\Field;
 use Molodyko\DashboardBundle\TwigExtension\TwigExtension;
 
-class LinkFunction extends TwigExtension {
+class CollectionFunction extends TwigExtension {
 
     /**
      * Initial template for extension
      *
      * @var string
      */
-    protected $template = 'DashboardBundle:Extension/Collection:link_collection.html.twig';
+    protected $template = 'DashboardBundle:Extension:collection_blocks.html.twig';
 
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ class LinkFunction extends TwigExtension {
                 // Disable auto escaping of html code
                 ['is_safe' => ['html']]
             ),
-            'theme_link_collection' => new \Twig_Function_Method(
+            'theme_dashboard_collection' => new \Twig_Function_Method(
                 $this,
                 'setTemplate'
             )

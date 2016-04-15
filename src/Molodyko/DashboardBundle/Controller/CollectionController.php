@@ -7,7 +7,6 @@ use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
-use Molodyko\DashboardBundle\DependencyInjection\MetaData;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,14 +40,11 @@ class CollectionController extends Controller
         $context->set('current_map_id', $id);
 
         // Render html
-        $html = $this->get('molodyko.dashboard.render.list_render')
+        $html = $this->get('molodyko.dashboard.render.collection_render')
             ->render($context, $paginationData, $this->getCollectionBuilder()->getFieldLabels());
 
         // Render main page
-        return $this->render(
-            'DashboardBundle:Block:index.html.twig',
-            ['content' => $html, 'context' => $context]
-        );
+        return $this->renderMain(['content' => $html, 'context' => $context]);
     }
 
     /**
@@ -85,8 +81,8 @@ class CollectionController extends Controller
     {
         $page = $request->query->get('page', 1);
 
-        $metaData = $this->getContainer()->get('molodyko.di.metadata.service');
-        $count = $metaData->getList()[Configuration::DEFAULT_COUNT_PAGE_ITEM_NODE_NAME];
+        $count = $this->getMetaData()
+            ->getList()[Configuration::DEFAULT_COUNT_PAGE_ITEM_NODE_NAME];
 
         // Get query for knp paginator
         $query = $this->getContainer()

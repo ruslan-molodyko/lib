@@ -1,6 +1,6 @@
 services:
-    molodyko.dashboard.render.list_render:
-        class: Molodyko\DashboardBundle\Render\ListRender
+    molodyko.dashboard.render.collection_render:
+        class: Molodyko\DashboardBundle\Render\CollectionRender
         arguments: ["@service_container"]
 
     molodyko.dashboard.render.form_render:
@@ -31,7 +31,7 @@ services:
         arguments: ["@knp_paginator"]
 
     molodyko.dashboard.extension.collection.link:
-        class: Molodyko\DashboardBundle\TwigExtension\Collection\LinkFunction
+        class: Molodyko\DashboardBundle\TwigExtension\Collection\CollectionFunction
         arguments: ["@service_container"]
         tags:
             - { name: twig.extension }

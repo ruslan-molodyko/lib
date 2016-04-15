@@ -1,4 +1,10 @@
 dashboard:
+    twig:
+        layout: 'DashboardBundle:Layout:layout.html.twig'
+        #collection: 'DashboardBundle:Collection:collection.html.twig'
+        collection: 'AdminBundle:Example:collection.html.twig'
+        form: 'DashboardBundle:Form:form.html.twig'
+        menu: 'DashboardBundle:Menu:menu.html.twig'
     service_mapping_prefix: dahsboard_service_prefix_
     list:
         default_count_page_item: 2

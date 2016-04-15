@@ -37,10 +37,7 @@ class FormController extends Controller
         $context->set('current_map_id', $name);
         $context->set('entity_id', $id);
 
-        return $this->render(
-            'DashboardBundle:Block:index.html.twig',
-            ['content' => $html, 'context' => $context]
-        );
+        return $this->renderMain(['content' => $html, 'context' => $context]);
     }
 
     /**

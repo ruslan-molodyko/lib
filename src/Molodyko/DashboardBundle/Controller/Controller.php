@@ -15,6 +15,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 abstract class Controller extends ParentController
 {
+    /** Name which uses in templates for accessing to the layout path */
+    const LAYOUT_PATH_TWIG_VAR_NAME = '__dashboard_layout_path';
+
     /**
      * Get container
      *
@@ -39,6 +42,16 @@ abstract class Controller extends ParentController
     }
 
     /**
+     * Get metadata
+     *
+     * @return \Molodyko\DashboardBundle\DependencyInjection\MetaData
+     */
+    protected function getMetaData()
+    {
+        return  $this->getContainer()->get('molodyko.di.metadata.service');
+    }
+
+    /**
      * Get class name of map entity
      *
      * @param Map $map
@@ -59,5 +72,25 @@ abstract class Controller extends ParentController
     protected function getContext()
     {
         return $this->get('molodyko.dashboard.logic.context');
+    }
+
+    /**
+     * Render main block
+     *
+     * @param string $data
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderMain($data)
+    {
+        // Get path to layout template
+        $layout = $this->getMetaData()->getConfig()
+            [Configuration::TWIG_NODE_NAME]
+            [Configuration::TWIG_LAYOUT_NODE_NAME];
+
+        // Render main page
+        return $this->render(
+            'DashboardBundle:Block:index.html.twig',
+            array_merge($data, [self::LAYOUT_PATH_TWIG_VAR_NAME => $layout])
+        );
     }
 }

@@ -1,13 +1,16 @@
-{% set currentMapId = context.get('current_map_id') %}
-<div class="list-group menu">
-	<div class="menu__wrapper">
-        {% for id, item in mapping %}
-            <a
-                href="{{ path('molodyko.dashboard.collection', {'id': id}) }}"
-                class="menu__item list-group-item {% if id == currentMapId %}active{% endif %}"
-            >
-                {{ id }}
-            </a>
-        {% endfor %}
-	</div>
-</div>
+{% block dashboard_menu_block %}
+    <div class="list-group menu">
+        <div class="menu__wrapper">
+            {% for id, item in mapping %}
+                {% block dashboard_menu_item %}
+                    <a
+                        href="{{ path('molodyko.dashboard.collection', {'id': id}) }}"
+                        class="menu__item list-group-item {% if id == context.get('current_map_id') %}active{% endif %}"
+                    >
+                        {{ id }}
+                    </a>
+                {% endblock %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

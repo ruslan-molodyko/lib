@@ -17,6 +17,17 @@ class Configuration implements ConfigurationInterface
     const SERVICE_MAPPING_PREFIX_NODE_NAME = 'service_mapping_prefix';
     const SERVICE_MAPPING_PREFIX_DEF_VAL = 'service_';
 
+    // Twig constants
+    const TWIG_NODE_NAME = 'twig';
+    const TWIG_LAYOUT_NODE_NAME = 'layout';
+    const TWIG_LAYOUT_DEF_VAL = 'DashboardBundle:Layout:layout.html.twig';
+    const TWIG_COLLECTION_NODE_NAME = 'collection';
+    const TWIG_COLLECTION_DEF_VAL = 'DashboardBundle:Collection:collection.html.twig';
+    const TWIG_FORM_NODE_NAME = 'form';
+    const TWIG_FORM_DEF_VAL = 'DashboardBundle:Form:form.html.twig';
+    const TWIG_MENU_NODE_NAME = 'menu';
+    const TWIG_MENU_DEF_VAL = 'DashboardBundle:Menu:menu.html.twig';
+
     // List constants
     const LIST_NODE_NAME = 'list';
     const DEFAULT_COUNT_PAGE_ITEM_NODE_NAME = 'default_count_page_item';
@@ -49,6 +60,27 @@ class Configuration implements ConfigurationInterface
                         // Count of items on list page
                         ->scalarNode(self::DEFAULT_COUNT_PAGE_ITEM_NODE_NAME)
                             ->defaultValue(self::DEFAULT_COUNT_PAGE_ITEM_DEF_VAL)
+                        ->end()
+                    ->end()
+                ->end()
+                // Configure twig
+                ->arrayNode(self::TWIG_NODE_NAME)
+                    ->children()
+                        // Path to layout with default value
+                        ->scalarNode(self::TWIG_LAYOUT_NODE_NAME)
+                            ->defaultValue(self::TWIG_LAYOUT_DEF_VAL)
+                        ->end()
+                        // Path to collection with default value
+                        ->scalarNode(self::TWIG_COLLECTION_NODE_NAME)
+                            ->defaultValue(self::TWIG_COLLECTION_DEF_VAL)
+                        ->end()
+                        // Path to form with default value
+                        ->scalarNode(self::TWIG_FORM_NODE_NAME)
+                            ->defaultValue(self::TWIG_FORM_DEF_VAL)
+                        ->end()
+                        // Path to menu with default value
+                        ->scalarNode(self::TWIG_MENU_NODE_NAME)
+                            ->defaultValue(self::TWIG_MENU_DEF_VAL)
                         ->end()
                     ->end()
                 ->end()

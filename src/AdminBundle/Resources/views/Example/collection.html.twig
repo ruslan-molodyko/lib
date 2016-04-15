@@ -1,0 +1,12 @@
+{# Extend previous template for overriding #}
+{% extends "DashboardBundle:Collection:collection.html.twig" %}
+
+{#Create some block for correct overriding #}
+{% block setting %}
+    {# Set theme of collection functions #}
+    {{ theme_dashboard_collection("AdminBundle:Example:test_theme_collection.html.twig") }}
+{% endblock %}
+
+{# Override some block #}
+{% block dashboard_collection_header %}
+{% endblock %}

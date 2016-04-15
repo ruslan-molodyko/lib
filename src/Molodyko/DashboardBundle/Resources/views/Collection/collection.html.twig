@@ -1,28 +1,33 @@
-{{ theme_link_collection("DashboardBundle:Extension/Collection:test_theme_collection.html.twig") }}
-<table class="table">
-    <tr>
-        {% for label in labels %}
-            <th>
-                {% if not label.isSortable %}
-                    {{ label.label }}
-                {% else %}
-                    {{ knp_pagination_sortable(pagination, label.label, label.entityAlias) }}
-                {% endif %}
-            </th>
-        {% endfor %}
-    </tr>
-    {% for list in pagination %}
-        <tr>
-            {% for field in list %}
-                <td>
-                    {{ link_collection_start(field) }}
-                        {{ field.value }}
-                    {{ link_collection_end(field) }}
-                </td>
+{% block dashboard_collection_block %}
+    <table class="table">
+        {% block dashboard_collection_header %}
+            <tr>
+                {% for label in labels %}
+                    <th>
+                        {% if label.isSortable %}
+                            {{ knp_pagination_sortable(pagination, label.label, label.entityAlias) }}
+                        {% else %}
+                            {{ label.label }}
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+        {% endblock %}
+        {% block dashboard_collection_content %}
+            {% for list in pagination %}
+                <tr>
+                    {% for field in list %}
+                        <td>
+                            {{ link_collection_start(field) }}
+                                {{ field.value }}
+                            {{ link_collection_end(field) }}
+                        </td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
+        {% endblock %}
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

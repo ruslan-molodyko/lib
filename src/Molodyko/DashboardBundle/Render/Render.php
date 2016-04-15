@@ -32,4 +32,14 @@ abstract class Render
     {
         return $this->getContainer()->get('templating')->render($view, $data);
     }
+
+    /**
+     * Get metadata
+     *
+     * @return \Molodyko\DashboardBundle\DependencyInjection\MetaData
+     */
+    protected function getMetaData()
+    {
+        return $this->getContainer()->get('molodyko.di.metadata.service');
+    }
 }

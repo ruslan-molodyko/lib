@@ -8,6 +8,7 @@
 
 namespace Molodyko\DashboardBundle\Render;
 
+use Molodyko\DashboardBundle\DependencyInjection\Configuration;
 use Symfony\Component\Form\Form;
 
 /**
@@ -25,8 +26,13 @@ class FormRender extends Render
      */
     public function render(Form $form)
     {
+        // Get form template path
+        $formTemplate = $this->getMetaData()->getConfig()
+            [Configuration::TWIG_NODE_NAME]
+            [Configuration::TWIG_FORM_NODE_NAME];
+
         $form = $form->createView();
-        $html = $this->renderView('DashboardBundle:Form:form.html.twig', ['form' => $form]);
+        $html = $this->renderView($formTemplate, ['form' => $form]);
 
         return $html;
     }
