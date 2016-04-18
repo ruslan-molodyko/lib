@@ -4,8 +4,4 @@ services:
     year.handler.book:
         class: AdminBundle\Admin\YearHandler
         tags:
-            - { name: kernel.event_listener, event: field.convert.value.book.year , method: handle }
-    year.handler.publishing_house:
-        class: AdminBundle\Admin\YearHandler
-        tags:
-            - { name: kernel.event_listener, event: field.convert.value.publishing_house.year , method: handle }
+            - { name: kernel.event_listener, event: field.convert.value.year, method: handle }

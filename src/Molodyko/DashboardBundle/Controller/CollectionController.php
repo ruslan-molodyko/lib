@@ -7,6 +7,7 @@ use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
 use Molodyko\DashboardBundle\DependencyInjection\Configuration;
+use Molodyko\DashboardBundle\Event\FieldNameConvertValueEvent;
 use Molodyko\DashboardBundle\Logic\Context;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -123,8 +124,10 @@ class CollectionController extends Controller
                     $field = $fieldCollection->get($name);
 
                     // Create and dispatch event
-                    $event = new FieldConvertValueEvent($id, $field->getName(), $value);
-                    $this->get('event_dispatcher')->dispatch($event->getEventName(), $event);
+                    $eventEntityRelevant = new FieldConvertValueEvent($id, $field->getName(), $value);
+                    $eventFieldRelevant = new FieldNameConvertValueEvent($id, $field->getName(), $value);
+                    $this->get('event_dispatcher')->dispatch($eventEntityRelevant->getEventName(), $eventEntityRelevant);
+                    $this->get('event_dispatcher')->dispatch($eventFieldRelevant->getEventName(), $eventFieldRelevant);
 
                     // Set converted value
                     $field->setValue($value);

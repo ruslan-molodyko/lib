@@ -92,7 +92,7 @@ class FieldConvertValueEvent extends Event
      */
     public function getEventName()
     {
-        return self::getEventNameByField($this->getEntityName(), $this->getFieldName());
+        return static::getEventNameByField($this->getEntityName(), $this->getFieldName());
     }
 
     /**
@@ -102,7 +102,7 @@ class FieldConvertValueEvent extends Event
      */
     public static function getEventNameByField($entityName, $fieldName)
     {
-        return self::EVENT_NAME . '.' . $entityName . '.' . $fieldName;
+        return static::EVENT_NAME . '.' . $entityName . '.' . $fieldName;
     }
 
     /**
