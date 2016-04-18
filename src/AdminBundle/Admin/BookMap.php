@@ -38,7 +38,7 @@ class BookMap extends Map
             ->add('description', ['handler' => function (FieldConvertValueEvent $event) {
                 $event->setValue('there is ' . $event->getValue());
             }])
-            ->add('year')
+            ->add('year', ['sortable' => true])
             ->add('isbn')
         ;
     }

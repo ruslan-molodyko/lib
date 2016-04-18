@@ -44,7 +44,7 @@ class PublishingHouse
     private $year;
 
     /**
-     * @ORM\OneToMany(targetEntity="SystemBundle\Entity\Book", mappedBy="publishingHouse")
+     * @ORM\OneToMany(targetEntity="SystemBundle\Entity\Book", mappedBy="publishingHouse", cascade={"persist", "remove"})
      */
     private $book;
 
@@ -168,6 +168,10 @@ class PublishingHouse
      */
     public function addBook(\SystemBundle\Entity\Book $book)
     {
+        if ($this->book->contains($book)) {
+            $this->removeBook($book);
+        }
+        $book->setPublishingHouse($this);
         $this->book->add($book);
 
         return $this;

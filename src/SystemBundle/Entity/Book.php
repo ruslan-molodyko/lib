@@ -43,7 +43,7 @@ class Book
     private $year;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SystemBundle\Entity\PublishingHouse")
+     * @ORM\ManyToOne(targetEntity="SystemBundle\Entity\PublishingHouse", inversedBy="book")
      * @ORM\JoinColumn(name="publishing_house_id", referencedColumnName="id")
      */
     private $publishingHouse;

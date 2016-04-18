@@ -24,10 +24,12 @@ class PublishingHouseMap extends Map
             ->add('description')
             ->add('isbn')
             ->add('year')
-//            ->add('book', EntityType::class, [
-//                'class' => 'SystemBundle\Entity\Book',
-//                'choice_label' => 'title',
-//            ])
+            ->add('book', EntityType::class, [
+                'class' => 'SystemBundle\Entity\Book',
+                'multiple' => true,
+                'by_reference' => false,
+                'choice_label' => 'title',
+            ])
             ->add('imageFile', FileType::class, ['required' => false])
         ;
     }
