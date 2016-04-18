@@ -11,7 +11,9 @@ namespace AdminBundle\Admin;
 use Molodyko\DashboardBundle\Admin\Map;
 use Molodyko\DashboardBundle\Builder\CollectionBuilder;
 use Molodyko\DashboardBundle\Event\FieldConvertValueEvent;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookMap extends Map
 {
@@ -21,6 +23,7 @@ class BookMap extends Map
             ->add('description')
             ->add('isbn')
             ->add('year')
+            ->add('imageFile', FileType::class)
         ;
     }
 

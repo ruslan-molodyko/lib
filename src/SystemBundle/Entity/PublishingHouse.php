@@ -2,6 +2,7 @@
 
 namespace SystemBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -40,9 +41,14 @@ class PublishingHouse
      */
     private $year;
 
-    private $publishingHouse;
-    private $author;
-    private $tags;
+//    private $publishingHouse;
+//    private $author;
+//    private $tags;
+
+    public function __construct()
+    {
+        $this->dsf = new ArrayCollection();
+    }
 
     /**
      * Get id

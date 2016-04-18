@@ -3,33 +3,25 @@
 namespace SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Molodyko\DashboardBundle\Util\InjectImagePropertyTrait;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="book")
  * @ORM\Entity(repositoryClass="SystemBundle\Repository\BookRepository")
- * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Book
 {
+    use InjectImagePropertyTrait;
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="image_book", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
 
     /**
      * @ORM\Column(type="string")
@@ -51,25 +43,12 @@ class Book
      */
     private $year;
 
-    /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-     * @return Book
-     */
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-        return $this;
-    }
+//    /**
+//     * @ORM\ManyToOne(targetEntity="SystemBundle\Entity\PublishingHouse")
+//     * @ORM\JoinColumn(name="publishing_house_id", referencedColumnName="id")
+//     */
+//    private $publishingHouse;
 
-    /**
-     * @return File
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    #private $publishingHouse;
     #private $author;
     #private $tags;
 
@@ -82,30 +61,6 @@ class Book
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Book
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -202,5 +157,29 @@ class Book
     public function getYear()
     {
         return $this->year;
+    }
+
+    /**
+     * Set publishingHouse
+     *
+     * @param \SystemBundle\Entity\PublishingHouse $publishingHouse
+     *
+     * @return Book
+     */
+    public function setPublishingHouse(\SystemBundle\Entity\PublishingHouse $publishingHouse = null)
+    {
+        $this->publishingHouse = $publishingHouse;
+
+        return $this;
+    }
+
+    /**
+     * Get publishingHouse
+     *
+     * @return \SystemBundle\Entity\PublishingHouse
+     */
+    public function getPublishingHouse()
+    {
+        return $this->publishingHouse;
     }
 }

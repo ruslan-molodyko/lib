@@ -19,3 +19,4 @@ dashboard:
             enabled: true
             entity:
                 class: SystemBundle\Entity\User
+
