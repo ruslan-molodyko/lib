@@ -8,7 +8,7 @@
 
 namespace Molodyko\DashboardBundle\Util;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**

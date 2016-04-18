@@ -9,6 +9,11 @@ dashboard:
     list:
         default_count_page_item: 20
     mapping:
+        publishing_house:
+            class: AdminBundle\Admin\PublishingHouseMap
+            enabled: true
+            entity:
+                class: SystemBundle\Entity\PublishingHouse
         book:
             class: AdminBundle\Admin\BookMap
             enabled: true

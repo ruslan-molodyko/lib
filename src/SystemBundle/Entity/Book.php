@@ -4,7 +4,6 @@ namespace SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Molodyko\DashboardBundle\Util\InjectImagePropertyTrait;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,11 +42,11 @@ class Book
      */
     private $year;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="SystemBundle\Entity\PublishingHouse")
-//     * @ORM\JoinColumn(name="publishing_house_id", referencedColumnName="id")
-//     */
-//    private $publishingHouse;
+    /**
+     * @ORM\ManyToOne(targetEntity="SystemBundle\Entity\PublishingHouse")
+     * @ORM\JoinColumn(name="publishing_house_id", referencedColumnName="id")
+     */
+    private $publishingHouse;
 
     #private $author;
     #private $tags;

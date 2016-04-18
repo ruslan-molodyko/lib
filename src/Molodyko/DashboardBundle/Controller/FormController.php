@@ -45,15 +45,6 @@ class FormController extends Controller
         return $this->renderMain(['content' => $html, 'context' => $context]);
     }
 
-    protected function saveForm(Form $form, Request $request)
-    {
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entity = $form->getData();
-            dump($entity);die;
-        }
-    }
-
     /**
      * Add submit button
      *

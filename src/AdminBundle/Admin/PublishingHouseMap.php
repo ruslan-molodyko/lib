@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class BookMap extends Map
+class PublishingHouseMap extends Map
 {
     public function configureFormField(FormBuilderInterface $formBuilder)
     {
@@ -24,10 +24,10 @@ class BookMap extends Map
             ->add('description')
             ->add('isbn')
             ->add('year')
-            ->add('publishingHouse', EntityType::class, [
-                'class' => 'SystemBundle\Entity\PublishingHouse',
-                'choice_label' => 'title',
-            ])
+//            ->add('book', EntityType::class, [
+//                'class' => 'SystemBundle\Entity\Book',
+//                'choice_label' => 'title',
+//            ])
             ->add('imageFile', FileType::class, ['required' => false])
         ;
     }
