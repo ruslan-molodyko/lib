@@ -2,7 +2,7 @@
 
 {# Custom image outputing #}
 {% block form_widget_simple -%}
-    {% if form.vars.name is defined and form.vars.name in ['imageFile'] %}
+    {% if form.vars.name is defined and form.vars.name in ['imageFile'] and form.parent.vars.data is not empty %}
         {% set entity = form.parent.vars.data %}
         <img src="{{ asset(entity.uploadImageDir ~ '/' ~ entity.image) }}">
     {% endif %}

@@ -30,4 +30,7 @@
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
+    <div>
+        <a href="{{ path('molodyko.dashboard.form', {'name': context.get('current_map_id')}) }}">Create new</a>
+    </div>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace Molodyko\DashboardBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,13 +14,13 @@ class FormController extends Controller
     /**
      * @Route("/form/{name}/{id}", name="molodyko.dashboard.form")
      */
-    public function indexAction(Request $request, $name, $id)
+    public function indexAction(Request $request, $name, $id = null)
     {
         $map = $this->getMap($name);
         $entityService = $this->get('molodyko.dashboard.data.entity');
         $entity = $entityService->getEntityById($this->getEntityClassNameByMap($map), $id);
 
-        $formBuilder = $this->getFormBuilder($entity);
+        $formBuilder = $this->getFormBuilder($this->getEntityClassNameByMap($map), $entity);
         $map->configureFormField($formBuilder);
         $this->finalizeFormBuilder($formBuilder);
         $form = $formBuilder->getForm();
@@ -28,6 +29,10 @@ class FormController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $entity = $form->getData();
             $entityService->save($entity);
+            return $this->redirectToRoute(
+                'molodyko.dashboard.form',
+                ['id' => $entity->getId(), 'name' => $name]
+            );
         }
 
         $html = $this->get('molodyko.dashboard.render.form_render')
@@ -38,6 +43,15 @@ class FormController extends Controller
         $context->set('entity_id', $id);
 
         return $this->renderMain(['content' => $html, 'context' => $context]);
+    }
+
+    protected function saveForm(Form $form, Request $request)
+    {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entity = $form->getData();
+            dump($entity);die;
+        }
     }
 
     /**
@@ -56,9 +70,9 @@ class FormController extends Controller
      * @param $data
      * @return \Symfony\Component\Form\FormBuilderInterface
      */
-    protected function getFormBuilder($data) {
+    protected function getFormBuilder($entityClass, $data) {
         return $this->getContainer()
             ->get('form.factory')
-            ->createBuilder(FormType::class, $data);
+            ->createBuilder(FormType::class, $data, ['data_class' => $entityClass]);
     }
 }
