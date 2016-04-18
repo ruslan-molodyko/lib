@@ -1,0 +1,13 @@
+{% extends "@Dashboard/Layout/form_div_layout.html.twig" %}
+
+{# Custom image outputing #}
+{% block form_widget_simple -%}
+    {% if form.vars.name is defined and form.vars.name in ['imageFile'] %}
+        {% set entity = form.parent.vars.data %}
+        <img src="{{ asset(entity.uploadImageDir ~ '/' ~ entity.image) }}">
+    {% endif %}
+    {% if type is not defined or type not in ['file', 'hidden'] %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock form_widget_simple %}

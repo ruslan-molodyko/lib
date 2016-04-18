@@ -33,7 +33,7 @@ trait InjectImagePropertyTrait
      *
      * @var string
      */
-    private $temp;
+    private $_tempPropertyImageTrait;
 
     /**
      * Get image
@@ -76,10 +76,10 @@ trait InjectImagePropertyTrait
         // check if we have an old image path
         if (isset($this->image)) {
             // store the old name to delete after the update
-            $this->temp = $this->image;
+            $this->_tempPropertyImageTrait = $this->image;
             $this->image = null;
         } else {
-            $this->image = 'initial';
+            $this->image = $this->getInitialImageName();
         }
     }
 
@@ -89,12 +89,12 @@ trait InjectImagePropertyTrait
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload()
+    public function preUploadImage()
     {
         if (null !== $this->getImageFile()) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->image = $filename.'.'.$this->getImageFile()->guessExtension();
+            $this->image = $filename . '.' . $this->getImageFile()->guessExtension();
         }
     }
 
@@ -104,7 +104,7 @@ trait InjectImagePropertyTrait
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function upload()
+    public function uploadImage()
     {
         if (null === $this->getImageFile()) {
             return;
@@ -116,11 +116,11 @@ trait InjectImagePropertyTrait
         $this->getImageFile()->move($this->getUploadRootDir(), $this->image);
 
         // check if we have an old image
-        if (isset($this->temp)) {
+        if (isset($this->_tempPropertyImageTrait)) {
             // delete the old image
-            unlink($this->getUploadRootDir().'/'.$this->temp);
-            // clear the temp image imageFile
-            $this->temp = null;
+            unlink($this->getUploadRootDir() . '/' . $this->_tempPropertyImageTrait);
+            // clear the _tempPropertyImageTrait image imageFile
+            $this->_tempPropertyImageTrait = null;
         }
         $this->imageFile = null;
     }
@@ -128,7 +128,7 @@ trait InjectImagePropertyTrait
     /**
      * @ORM\PostRemove()
      */
-    public function removeUpload()
+    public function removeUploadImage()
     {
         $file = $this->getAbsolutePath();
         if ($file) {
@@ -145,7 +145,7 @@ trait InjectImagePropertyTrait
     {
         return null === $this->image
             ? null
-            : $this->getUploadRootDir().'/'.$this->image;
+            : $this->getUploadRootDir() . '/' . $this->image;
     }
 
     /**
@@ -157,7 +157,7 @@ trait InjectImagePropertyTrait
     {
         return null === $this->image
             ? null
-            : $this->getUploadDir().'/'.$this->image;
+            : $this->getUploadImageDir() . '/' . $this->image;
     }
 
     /**
@@ -168,7 +168,7 @@ trait InjectImagePropertyTrait
      */
     protected function getUploadRootDir()
     {
-        return __DIR__.'/../../../../../www/'.$this->getUploadDir();
+        return __DIR__ . '/../../../../www/' . $this->getUploadImageDir();
     }
 
     /**
@@ -177,8 +177,18 @@ trait InjectImagePropertyTrait
      *
      * @return string
      */
-    protected function getUploadDir()
+    public function getUploadImageDir()
     {
         return 'uploads/images';
+    }
+
+    /**
+     * Get initial image
+     *
+     * @return string
+     */
+    public function getInitialImageName()
+    {
+        return 'init.png';
     }
 }
