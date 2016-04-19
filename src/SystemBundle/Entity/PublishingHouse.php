@@ -185,6 +185,8 @@ class PublishingHouse
     public function removeBook(\SystemBundle\Entity\Book $book)
     {
         $this->book->removeElement($book);
+        // http://stackoverflow.com/questions/16197483/delete-an-item-from-onetomany-relationship
+        $book->setPublishingHouse(null);
     }
 
     /**
@@ -197,3 +199,4 @@ class PublishingHouse
         return $this->book;
     }
 }
+

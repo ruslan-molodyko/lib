@@ -28,6 +28,7 @@ class PublishingHouseMap extends Map
                 'class' => 'SystemBundle\Entity\Book',
                 'multiple' => true,
                 'by_reference' => false,
+                'expanded' => true,
                 'choice_label' => 'title',
             ])
             ->add('imageFile', FileType::class, ['required' => false])
