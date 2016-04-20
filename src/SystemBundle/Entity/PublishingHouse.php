@@ -36,7 +36,7 @@ class PublishingHouse
     /**
      * @ORM\Column(type="string")
      */
-    private $isbn;
+    private $website;
 
     /**
      * @ORM\Column(type="datetime")
@@ -112,27 +112,27 @@ class PublishingHouse
     }
 
     /**
-     * Set isbn
+     * Set website
      *
-     * @param string $isbn
+     * @param string $website
      *
      * @return PublishingHouse
      */
-    public function setIsbn($isbn)
+    public function setWebsite($website)
     {
-        $this->isbn = $isbn;
+        $this->website = $website;
 
         return $this;
     }
 
     /**
-     * Get isbn
+     * Get website
      *
      * @return string
      */
-    public function getIsbn()
+    public function getWebsite()
     {
-        return $this->isbn;
+        return $this->website;
     }
 
     /**

@@ -35,14 +35,26 @@ class FormController extends Controller
             );
         }
 
-        $html = $this->get('molodyko.dashboard.render.form_render')
-            ->render($form);
-
         $context = $this->getContext();
         $context->set('current_map_id', $name);
         $context->set('entity_id', $id);
 
+        $html = $this->get('molodyko.dashboard.render.form_render')
+            ->render($form, $context);
+
         return $this->renderMain(['content' => $html, 'context' => $context]);
+    }
+
+    /**
+     * @Route("/remove/{name}/{id}", name="molodyko.dashboard.form.remove")
+     */
+    public function removeAction($name, $id)
+    {
+        $map = $this->getMap($name);
+        $entityService = $this->get('molodyko.dashboard.data.entity');
+        $entity = $entityService->getEntityById($this->getEntityClassNameByMap($map), $id);
+        $entityService->remove($entity);
+        return $this->redirectToRoute('molodyko.dashboard.collection', ['id' => $name]);
     }
 
     /**

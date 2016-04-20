@@ -1,2 +1,3 @@
 {% form_theme form 'DashboardBundle:Layout:override_form_layout.html.twig' %}
 {{ form(form) }}
+<a href="{{ path('molodyko.dashboard.form.remove', {'name': context.get('current_map_id'), 'id': context.get('entity_id')}) }}">Remove</a>

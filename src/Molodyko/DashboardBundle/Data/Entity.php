@@ -46,10 +46,27 @@ class Entity
             ->findOneBy(['id' => $id]);
     }
 
+    /**
+     * Save entity
+     *
+     * @param $entity
+     */
     public function save($entity)
     {
         $em = $this->getEntityManager();
         $em->persist($entity);
+        $em->flush();
+    }
+
+    /**
+     * Remove entity
+     *
+     * @param $entity
+     */
+    public function remove($entity)
+    {
+        $em = $this->getEntityManager();
+        $em->remove($entity);
         $em->flush();
     }
 }
